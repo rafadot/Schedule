@@ -28,4 +28,8 @@ public class Schedule implements Serializable {
     @OneToMany
     @JoinColumn(name = "contacts_uuid")
     private List<Contacts> contacts;
+
+    @OneToMany
+    @JoinColumn(name = "notes_uuid")
+    private List<Notes> notes;
 }

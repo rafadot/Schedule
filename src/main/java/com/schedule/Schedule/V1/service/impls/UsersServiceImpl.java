@@ -1,9 +1,11 @@
 package com.schedule.Schedule.V1.service.impls;
 
 import com.schedule.Schedule.V1.mapper.UsersMapper;
+import com.schedule.Schedule.V1.model.Schedule;
 import com.schedule.Schedule.V1.model.Users;
 import com.schedule.Schedule.V1.dto.users.UsersRequest;
 import com.schedule.Schedule.V1.dto.users.UsersResponse;
+import com.schedule.Schedule.V1.repository.ScheduleRepository;
 import com.schedule.Schedule.V1.repository.UsersRepository;
 import com.schedule.Schedule.V1.service.interfaces.UsersService;
 import com.schedule.Schedule.exceptions.gerenciment.BadRequestException;
@@ -21,10 +23,9 @@ import java.util.stream.Collectors;
 public class UsersServiceImpl implements UsersService {
 
     private final UsersRepository usersRepository;
-
     private final PasswordEncoder encoder;
-
     private final UsersMapper usersMapper;
+    private final ScheduleRepository scheduleRepository;
 
     @Override
     public UsersResponse createUser(UsersRequest usersRequest) {
@@ -35,9 +36,12 @@ public class UsersServiceImpl implements UsersService {
         }
 
         Users users = new Users();
+        Schedule schedule = new Schedule();
         BeanUtils.copyProperties(usersRequest, users);
 
+        scheduleRepository.save(schedule);
         users.setPassword(encoder.encode(users.getPassword()));
+        users.setSchedule(schedule);
         usersRepository.save(users);
 
         return UsersResponse.builder()
@@ -46,6 +50,7 @@ public class UsersServiceImpl implements UsersService {
                 .fullName(users.getFullName())
                 .birthDate(users.getBirthDate())
                 .genre(users.getGenre())
+                .schedule(users.getSchedule())
                 .build();
     }
 

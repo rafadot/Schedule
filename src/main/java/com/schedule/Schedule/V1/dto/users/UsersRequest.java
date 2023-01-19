@@ -28,6 +28,9 @@ public class UsersRequest {
     private String fullName;
 
     @NotBlank
+    private String nickName;
+
+    @NotBlank
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 

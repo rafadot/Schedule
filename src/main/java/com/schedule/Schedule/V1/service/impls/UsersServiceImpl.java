@@ -14,8 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,6 +47,7 @@ public class UsersServiceImpl implements UsersService {
                 .uuid(users.getUuid())
                 .email(users.getEmail())
                 .fullName(users.getFullName())
+                .nickName(users.getNickName())
                 .birthDate(users.getBirthDate())
                 .genre(users.getGenre())
                 .schedule(users.getSchedule())
@@ -63,5 +63,20 @@ public class UsersServiceImpl implements UsersService {
                     usersMapper.usersResponseMapper(m, usersResponse);
                     return usersResponse;
                 }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Map<String, String> delete(UUID uuid) {
+        Optional<Users> users = usersRepository.findById(uuid);
+
+        if(!users.isPresent())
+            throw new BadRequestException("Id não inválido");
+
+        String name = users.get().getNickName();
+        usersRepository.deleteById(uuid);
+        Map<String, String> response = new HashMap<>();
+        response.put("messenger", name + " exluído com sucesso!");
+
+        return response;
     }
 }

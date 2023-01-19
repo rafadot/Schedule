@@ -25,11 +25,11 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "contacts_uuid")
     private List<Contacts> contacts;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "notes_uuid")
     private List<Notes> notes;
 }

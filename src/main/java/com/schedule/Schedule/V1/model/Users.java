@@ -32,13 +32,15 @@ public class Users implements Serializable {
 
     private String fullName;
 
+    private String nickName;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)
     private Genre genre;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "schedule_uuid")
     private Schedule schedule;
 

@@ -20,6 +20,8 @@ public class UsersResponse {
 
     private String fullName;
 
+    private String nickName;
+
     private LocalDate birthDate;
 
     private Genre genre;

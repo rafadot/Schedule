@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -26,6 +28,11 @@ public class UsersController {
     @GetMapping
     public ResponseEntity<List<UsersResponse>> getAll(){
         return new ResponseEntity<>(usersService.getAll() , HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Map<String,String>> delete(@RequestParam UUID uuid){
+        return new ResponseEntity<>(usersService.delete(uuid) ,HttpStatus.OK);
     }
 
 }

@@ -10,4 +10,6 @@ public interface NotesService {
     NotesResponse create(NotesRequest notesRequest, UUID scheduleUUID);
 
     Map<String, String> delete(UUID uuid);
+
+    NotesResponse update(UUID uuid, NotesRequest notesRequest);
 }

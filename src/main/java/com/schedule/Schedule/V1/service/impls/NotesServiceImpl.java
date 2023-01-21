@@ -57,4 +57,11 @@ public class NotesServiceImpl implements NotesService {
         response.put("messenger", title + " excluído com sucesso!");
         return response;
     }
+
+    @Override
+    public NotesResponse update(UUID uuid, NotesRequest notesRequest) {
+        return null;
+    }
+
+
 }

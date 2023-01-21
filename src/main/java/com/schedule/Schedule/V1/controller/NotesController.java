@@ -3,7 +3,6 @@ package com.schedule.Schedule.V1.controller;
 import com.schedule.Schedule.V1.dto.notes.NotesRequest;
 import com.schedule.Schedule.V1.dto.notes.NotesResponse;
 import com.schedule.Schedule.V1.service.interfaces.NotesService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

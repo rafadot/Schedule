@@ -26,10 +26,10 @@ public class Schedule implements Serializable {
     private UUID uuid;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contacts_uuid")
+    @JoinColumn(name = "schedule_uuid")
     private List<Contacts> contacts;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "notes_uuid")
+    @JoinColumn(name = "schedule_uuid")
     private List<Notes> notes;
 }

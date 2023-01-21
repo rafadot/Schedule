@@ -11,4 +11,6 @@ public interface ContactsService {
     ContactsResponse create(ContactsRequest contactsRequest , UUID scheduleUUID);
 
     Map<String, String> deleteContact(UUID uuid);
+
+    ContactsResponse update(UUID uuid, ContactsRequest contactsRequest);
 }

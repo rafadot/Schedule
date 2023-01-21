@@ -3,7 +3,6 @@ package com.schedule.Schedule.V1.controller;
 import com.schedule.Schedule.V1.dto.users.UsersRequest;
 import com.schedule.Schedule.V1.dto.users.UsersResponse;
 import com.schedule.Schedule.V1.service.interfaces.UsersService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

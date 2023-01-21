@@ -62,4 +62,24 @@ public class ContactsServiceImpl implements ContactsService {
         return response;
     }
 
+    @Override
+    public ContactsResponse update(UUID uuid, ContactsRequest contactsRequest) {
+        Optional<Contacts> optContacts = contactsRepository.findById(uuid);
+
+        if(!optContacts.isPresent())
+            throw new BadRequestException("Contato não encontrado");
+
+        Contacts contacts = Contacts.builder()
+                .uuid(uuid)
+                .name(contactsRequest.getName() != null ? contactsRequest.getName() : optContacts.get().getName())
+                .nickname(contactsRequest.getNickname() != null ? contactsRequest.getNickname() : optContacts.get().getNickname())
+                .phoneNumber(contactsRequest.getPhoneNumber() != null ? contactsRequest.getPhoneNumber() : optContacts.get().getPhoneNumber())
+                .build();
+        contactsRepository.save(contacts);
+
+        ContactsResponse response = new ContactsResponse();
+        BeanUtils.copyProperties(contacts,response);
+        return response;
+    }
+
 }

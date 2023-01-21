@@ -22,7 +22,7 @@ public class UsersController {
     private final UsersService usersService;
 
     @PostMapping
-    public ResponseEntity<UsersResponse> createUser(@RequestBody UsersRequest usersRequest){
+    public ResponseEntity<UsersResponse> createUser(@Valid @RequestBody UsersRequest usersRequest){
         return new ResponseEntity<>(usersService.createUser(usersRequest) , HttpStatus.CREATED);
     }
 

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,7 +23,7 @@ public class ContactsController {
 
 
     @PostMapping
-    public ResponseEntity<ContactsResponse> create(@RequestBody ContactsRequest contactsRequest, @RequestParam UUID scheduleUUID){
+    public ResponseEntity<ContactsResponse> create(@Valid @RequestBody ContactsRequest contactsRequest, @RequestParam UUID scheduleUUID){
         return new ResponseEntity<>(contactsService.create(contactsRequest , scheduleUUID) , HttpStatus.CREATED);
     }
 

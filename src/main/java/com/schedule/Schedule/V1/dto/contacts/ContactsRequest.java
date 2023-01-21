@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.util.UUID;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -20,7 +20,7 @@ public class ContactsRequest {
     @NotBlank
     private String nickname;
 
-    @NotBlank
+    @NotNull
     private Long phoneNumber;
 
 }

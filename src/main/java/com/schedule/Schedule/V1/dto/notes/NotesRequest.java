@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -21,7 +22,7 @@ public class NotesRequest {
     @NotBlank
     private String description;
 
-    @NotBlank
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
 }

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class NotesController {
     private final NotesService notesService;
 
     @PostMapping
-    public ResponseEntity<NotesResponse> create(@RequestBody NotesRequest notesRequest, @RequestParam UUID scheduleUUID){
+    public ResponseEntity<NotesResponse> create(@Valid @RequestBody NotesRequest notesRequest, @RequestParam UUID scheduleUUID){
         return new ResponseEntity<>(notesService.create(notesRequest,scheduleUUID) , HttpStatus.CREATED);
     }
 

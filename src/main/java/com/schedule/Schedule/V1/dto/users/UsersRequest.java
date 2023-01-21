@@ -31,11 +31,11 @@ public class UsersRequest {
     @NotBlank
     private String nickName;
 
-    @NotBlank
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Genre genre;
 }

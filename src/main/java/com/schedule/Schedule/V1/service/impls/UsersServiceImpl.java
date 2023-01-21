@@ -28,10 +28,15 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public UsersResponse createUser(UsersRequest usersRequest) {
-        Optional<Users> usersOptional = usersRepository.findByEmail(usersRequest.getEmail());
+        Optional<Users> email = usersRepository.findByEmail(usersRequest.getEmail());
+        Optional<Users> nickName = usersRepository.findByNickName(usersRequest.getNickName());
 
-        if(usersOptional.isPresent()){
-            throw new BadRequestException("O email já está cadastrado");
+        if(email.isPresent() && nickName.isPresent()){
+            throw new BadRequestException("Email e nome de usuário já cadastrados");
+        }else if(email.isPresent()){
+            throw new BadRequestException("Email já cadastrado");
+        }else if(nickName.isPresent()){
+            throw new BadRequestException("Usuário já cadastrado");
         }
 
         Users users = new Users();

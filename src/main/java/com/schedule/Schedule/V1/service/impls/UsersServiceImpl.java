@@ -36,7 +36,7 @@ public class UsersServiceImpl implements UsersService {
         }else if(email.isPresent()){
             throw new BadRequestException("Email já cadastrado");
         }else if(nickName.isPresent()){
-            throw new BadRequestException("Usuário já cadastrado");
+            throw new BadRequestException("Nome de usuário já cadastrado");
         }
 
         Users users = new Users();

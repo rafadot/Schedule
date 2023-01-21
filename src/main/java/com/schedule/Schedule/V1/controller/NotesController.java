@@ -23,6 +23,11 @@ public class NotesController {
         return new ResponseEntity<>(notesService.create(notesRequest,scheduleUUID) , HttpStatus.CREATED);
     }
 
+    @PatchMapping
+    public ResponseEntity<NotesResponse> update(@RequestParam UUID uuid, @RequestBody NotesRequest notesRequest){
+        return new ResponseEntity<>(notesService.update(uuid,notesRequest) , HttpStatus.OK);
+    }
+
     @DeleteMapping
     public ResponseEntity<Map<String, String>> delete(@RequestParam UUID uuid){
         return new ResponseEntity<>(notesService.delete(uuid) , HttpStatus.OK);

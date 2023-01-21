@@ -60,8 +60,23 @@ public class NotesServiceImpl implements NotesService {
 
     @Override
     public NotesResponse update(UUID uuid, NotesRequest notesRequest) {
-        return null;
+        Optional<Notes> optNotes = notesRepository.findById(uuid);
+
+        if(!optNotes.isPresent())
+            throw new BadRequestException("Id não encontrado");
+
+        Notes notes = Notes.builder()
+                .uuid(uuid)
+                .title(notesRequest.getTitle() != null ? notesRequest.getTitle() : optNotes.get().getTitle())
+                .description(notesRequest.getDescription() != null ? notesRequest.getDescription() : optNotes.get().getDescription())
+                .date(notesRequest.getDate() != null ? notesRequest.getDate() : optNotes.get().getDate())
+                .build();
+
+        notesRepository.save(notes);
+
+        NotesResponse response = new NotesResponse();
+        BeanUtils.copyProperties(notes,response);
+
+        return response;
     }
-
-
 }

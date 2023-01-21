@@ -16,8 +16,5 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    @PostMapping
-    public ResponseEntity<ScheduleResponse> create(@RequestBody UUID userUUID){
-        return new ResponseEntity<>(scheduleService.create(userUUID) , HttpStatus.CREATED);
-    }
+
 }

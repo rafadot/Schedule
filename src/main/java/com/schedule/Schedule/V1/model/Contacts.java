@@ -3,7 +3,6 @@ package com.schedule.Schedule.V1.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -15,7 +14,6 @@ import java.util.UUID;
 @Builder
 public class Contacts implements Serializable {
 
-    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id

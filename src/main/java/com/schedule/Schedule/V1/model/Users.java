@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -19,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Users implements Serializable {
-    @Serial
+
     private static final long serialVersionUID = 1L;
 
     @Id

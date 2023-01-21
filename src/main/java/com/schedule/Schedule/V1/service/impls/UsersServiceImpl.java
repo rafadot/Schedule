@@ -71,6 +71,20 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public UsersResponse getUserById(UUID uuid) {
+        Optional<Users> usersOpt = usersRepository.findById(uuid);
+
+        if(!usersOpt.isPresent())
+            throw new BadRequestException("Id inválido");
+
+        Users users = usersOpt.get();
+        UsersResponse response = new UsersResponse();
+        BeanUtils.copyProperties(users,response);
+
+        return response;
+    }
+
+    @Override
     public Map<String, String> delete(UUID uuid) {
         Optional<Users> users = usersRepository.findById(uuid);
 

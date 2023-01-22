@@ -27,8 +27,8 @@ public class NotesController {
     }
 
     @PatchMapping
-    public ResponseEntity<NotesResponse> update(@RequestParam UUID scheduleUUID, @RequestBody NotesRequest notesRequest){
-        return new ResponseEntity<>(notesService.update(scheduleUUID,notesRequest) , HttpStatus.OK);
+    public ResponseEntity<NotesResponse> update(@RequestParam UUID uuid, @RequestBody NotesRequest notesRequest){
+        return new ResponseEntity<>(notesService.update(uuid,notesRequest) , HttpStatus.OK);
     }
 
     @DeleteMapping

@@ -19,4 +19,6 @@ public class NotesResponse {
     private String description;
 
     private LocalDateTime date;
+
+    private String color;
 }

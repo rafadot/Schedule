@@ -25,4 +25,6 @@ public class NotesRequest {
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
+
+    private String color;
 }

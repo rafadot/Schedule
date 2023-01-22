@@ -34,12 +34,10 @@ public class NotesServiceImpl implements NotesService {
         schedule.get().getNotes().add(notes);
         scheduleRepository.save(schedule.get());
 
-        return NotesResponse.builder()
-                .uuid(notes.getUuid())
-                .title(notes.getTitle())
-                .description(notes.getDescription())
-                .date(notes.getDate())
-                .build();
+        NotesResponse response = new NotesResponse();
+        BeanUtils.copyProperties(notes,response);
+
+        return response;
     }
 
     @Override
@@ -68,6 +66,7 @@ public class NotesServiceImpl implements NotesService {
                 .title(notesRequest.getTitle() != null ? notesRequest.getTitle() : optNotes.get().getTitle())
                 .description(notesRequest.getDescription() != null ? notesRequest.getDescription() : optNotes.get().getDescription())
                 .date(notesRequest.getDate() != null ? notesRequest.getDate() : optNotes.get().getDate())
+                .color(notesRequest.getColor() != null ? notesRequest.getColor() : optNotes.get().getColor())
                 .build();
 
         notesRepository.save(notes);

@@ -29,4 +29,5 @@ public class Notes implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
 
+    private String color;
 }

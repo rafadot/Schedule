@@ -36,7 +36,7 @@ public class UsersController {
         return new ResponseEntity<>(usersService.delete(uuid) ,HttpStatus.OK);
     }
 
-    @GetMapping("/{uuid}")
+    @GetMapping("/getById")
     public ResponseEntity<UsersResponse> getUserById(@RequestParam UUID uuid){
         return new ResponseEntity<>(usersService.getUserById(uuid),HttpStatus.OK);
     }

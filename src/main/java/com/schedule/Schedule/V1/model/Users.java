@@ -42,5 +42,4 @@ public class Users implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "schedule_uuid")
     private Schedule schedule;
-
 }

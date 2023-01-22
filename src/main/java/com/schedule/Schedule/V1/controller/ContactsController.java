@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -19,8 +20,6 @@ import java.util.UUID;
 public class ContactsController {
 
     private final ContactsService contactsService;
-
-
 
     @PostMapping
     public ResponseEntity<ContactsResponse> create(@Valid @RequestBody ContactsRequest contactsRequest, @RequestParam UUID scheduleUUID){
@@ -35,6 +34,16 @@ public class ContactsController {
     @PatchMapping
     public ResponseEntity<ContactsResponse> updates(@RequestParam UUID uuid, @RequestBody ContactsRequest updates){
         return new ResponseEntity<>(contactsService.update(uuid ,updates) , HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Contacts>> getAll(@RequestParam UUID scheduleUUID){
+        return new ResponseEntity<>(contactsService.getAll(scheduleUUID),HttpStatus.OK);
+    }
+
+    @GetMapping("/getById")
+    public ResponseEntity<ContactsResponse> getById(@RequestParam UUID uuid){
+        return new ResponseEntity<>(contactsService.getById(uuid),HttpStatus.OK);
     }
 
 }

@@ -55,7 +55,7 @@ public class UsersServiceImpl implements UsersService {
                 .nickName(users.getNickName())
                 .birthDate(users.getBirthDate())
                 .genre(users.getGenre())
-                .schedule(users.getSchedule())
+                .scheduleUUID(schedule.getUuid())
                 .build();
     }
 
@@ -66,6 +66,7 @@ public class UsersServiceImpl implements UsersService {
                 .map(m ->{
                     UsersResponse usersResponse = new UsersResponse();
                     usersMapper.usersResponseMapper(m, usersResponse);
+                    usersResponse.setScheduleUUID(m.getSchedule().getUuid());
                     return usersResponse;
                 }).collect(Collectors.toList());
     }
@@ -80,7 +81,7 @@ public class UsersServiceImpl implements UsersService {
         Users users = usersOpt.get();
         UsersResponse response = new UsersResponse();
         BeanUtils.copyProperties(users,response);
-
+        response.setScheduleUUID(users.getSchedule().getUuid());
         return response;
     }
 

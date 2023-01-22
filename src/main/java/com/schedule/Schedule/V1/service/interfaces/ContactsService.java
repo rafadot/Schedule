@@ -4,6 +4,7 @@ import com.schedule.Schedule.V1.dto.contacts.ContactsRequest;
 import com.schedule.Schedule.V1.dto.contacts.ContactsResponse;
 import com.schedule.Schedule.V1.model.Contacts;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -13,4 +14,8 @@ public interface ContactsService {
     Map<String, String> deleteContact(UUID uuid);
 
     ContactsResponse update(UUID uuid, ContactsRequest contactsRequest);
+
+    List<Contacts> getAll(UUID scheduleUUID);
+
+    ContactsResponse getById(UUID uuid);
 }

@@ -12,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -79,6 +76,30 @@ public class ContactsServiceImpl implements ContactsService {
 
         ContactsResponse response = new ContactsResponse();
         BeanUtils.copyProperties(contacts,response);
+        return response;
+    }
+
+    @Override
+    public List<Contacts> getAll(UUID scheduleUUID) {
+        Optional<Schedule> optSchedule = scheduleRepository.findById(scheduleUUID);
+
+        if(!optSchedule.isPresent())
+            throw new BadRequestException("Id da agenda não encontrado");
+
+        return optSchedule.get().getContacts();
+    }
+
+    @Override
+    public ContactsResponse getById(UUID scheduleUUID) {
+        Optional<Contacts> optionalContacts = contactsRepository.findById(scheduleUUID);
+
+        if(!optionalContacts.isPresent())
+            throw new BadRequestException("Id do contato não encontrado");
+
+        Contacts contacts = optionalContacts.get();
+        ContactsResponse response = new ContactsResponse();
+        BeanUtils.copyProperties(contacts,response);
+
         return response;
     }
 

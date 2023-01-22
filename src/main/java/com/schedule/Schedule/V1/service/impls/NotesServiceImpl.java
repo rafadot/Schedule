@@ -12,10 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -38,6 +35,7 @@ public class NotesServiceImpl implements NotesService {
         scheduleRepository.save(schedule.get());
 
         return NotesResponse.builder()
+                .uuid(notes.getUuid())
                 .title(notes.getTitle())
                 .description(notes.getDescription())
                 .date(notes.getDate())
@@ -74,6 +72,30 @@ public class NotesServiceImpl implements NotesService {
 
         notesRepository.save(notes);
 
+        NotesResponse response = new NotesResponse();
+        BeanUtils.copyProperties(notes,response);
+
+        return response;
+    }
+
+    @Override
+    public List<Notes> getAll(UUID scheduleUUID) {
+        Optional<Schedule> schedule = scheduleRepository.findById(scheduleUUID);
+
+        if(!schedule.isPresent())
+            throw new BadRequestException("Id da agenda não encontrado");
+
+        return schedule.get().getNotes();
+    }
+
+    @Override
+    public NotesResponse getById(UUID uuid) {
+        Optional<Notes> optNotes = notesRepository.findById(uuid);
+
+        if(!optNotes.isPresent())
+            throw new BadRequestException("Id da nota não encontrado");
+
+        Notes notes = optNotes.get();
         NotesResponse response = new NotesResponse();
         BeanUtils.copyProperties(notes,response);
 

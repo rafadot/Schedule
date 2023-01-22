@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/login")
@@ -21,7 +23,7 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping
-    ResponseEntity<UsersResponse> login(@Valid @RequestBody Login login){
+    ResponseEntity<Map<String, UUID>> login(@Valid @RequestBody Login login){
         return new ResponseEntity<>(loginService.login(login), HttpStatus.OK);
     }
 }

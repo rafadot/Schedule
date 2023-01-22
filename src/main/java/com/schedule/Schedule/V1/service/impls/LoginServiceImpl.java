@@ -11,7 +11,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +25,7 @@ public class LoginServiceImpl implements LoginService {
     private final PasswordEncoder encoder;
 
     @Override
-    public UsersResponse login(Login login) {
+    public Map<String, UUID> login(Login login) {
         Optional<Users> optUsers = usersRepository.findByEmail(login.getEmail());
 
         if(!optUsers.isPresent())
@@ -33,8 +36,10 @@ public class LoginServiceImpl implements LoginService {
         if(!encoder.matches(login.getPassword(), users.getPassword()))
             throw new BadRequestException("Senha inválida");
 
-        UsersResponse response = new UsersResponse();
-        BeanUtils.copyProperties(users,response);
+        Map<String, UUID> response = new HashMap<>();
+
+        response.put("userId",users.getUuid());
+        response.put("scheduleId",users.getSchedule().getUuid());
 
         return response;
     }

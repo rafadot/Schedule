@@ -38,5 +38,5 @@ public class Events implements Serializable {
 
     @OneToMany
     @JoinColumn(name = "nick_name_users")
-    private List<Users> usersGroup;
+    private List<Schedule> usersGroup;
 }

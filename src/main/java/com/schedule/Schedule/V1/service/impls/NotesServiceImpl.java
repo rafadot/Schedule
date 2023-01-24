@@ -50,7 +50,7 @@ public class NotesServiceImpl implements NotesService {
         String title = notes.get().getTitle();
         notesRepository.deleteById(uuid);
         Map<String, String> response = new HashMap<>();
-        response.put("messenger", title + " excluído com sucesso!");
+        response.put("message", title + " excluído com sucesso!");
         return response;
     }
 

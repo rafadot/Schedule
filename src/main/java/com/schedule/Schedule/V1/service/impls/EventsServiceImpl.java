@@ -79,7 +79,7 @@ public class EventsServiceImpl implements EventsService {
 
         Map<String, String> response = new HashMap<>();
 
-        response.put("messenger",events.getTitle() + " compartilhado com " + users.getNickName());
+        response.put("message",events.getTitle() + " compartilhado com " + users.getNickName());
 
         return response;
     }

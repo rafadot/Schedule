@@ -1,4 +1,4 @@
-package com.schedule.Schedule.V1.model;
+package com.schedule.Schedule.V1.dto.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,22 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Events implements Serializable {
-    private final static long serialVersionUID = 1L;
+public class EventsResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 
     private String title;

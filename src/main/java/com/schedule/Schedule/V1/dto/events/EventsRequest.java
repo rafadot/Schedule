@@ -1,4 +1,4 @@
-package com.schedule.Schedule.V1.model;
+package com.schedule.Schedule.V1.dto.events;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,35 +6,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Events implements Serializable {
-    private final static long serialVersionUID = 1L;
+public class EventsRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID uuid;
-
+    @NotBlank
     private String title;
 
+    @NotBlank
     private String description;
 
+    @NotBlank
     private String place;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startDate;
 
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endDate;
 
+    @NotBlank
     private String creator;
 }

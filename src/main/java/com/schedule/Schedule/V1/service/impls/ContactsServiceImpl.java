@@ -54,7 +54,7 @@ public class ContactsServiceImpl implements ContactsService {
         contactsRepository.deleteById(uuid);
 
         Map<String, String> response = new HashMap<>();
-        response.put("messenger", name + " deletado com sucesso");
+        response.put("message", name + " deletado com sucesso");
 
         return response;
     }

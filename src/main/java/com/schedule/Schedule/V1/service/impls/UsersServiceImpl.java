@@ -95,7 +95,7 @@ public class UsersServiceImpl implements UsersService {
         String name = users.get().getNickName();
         usersRepository.deleteById(uuid);
         Map<String, String> response = new HashMap<>();
-        response.put("messenger", name + " exluído com sucesso!");
+        response.put("message", name + " exluído com sucesso!");
 
         return response;
     }

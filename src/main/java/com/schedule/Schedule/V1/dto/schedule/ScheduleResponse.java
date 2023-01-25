@@ -17,6 +17,8 @@ public class ScheduleResponse {
 
     private UUID uuid;
 
+    private String creatorName;
+
     private List<Contacts> contacts;
 
     private List<Notes> notes;

@@ -32,11 +32,20 @@ public class EventsServiceImpl implements EventsService {
         if(!optSchedule.isPresent())
             throw new BadRequestException("Id da agenda não encontrado");
 
-        Events events = new Events();
-        BeanUtils.copyProperties(eventsRequest,events);
-        eventsRepository.save(events);
+        List<Events> eventsList = optSchedule.get().getEvents();
 
+        for(Events event : eventsList){
+            if(event.getTitle().equals(eventsRequest.getTitle()))
+                throw new BadRequestException("Nome de evento já existe");
+        }
+
+        Events events = new Events();
         Schedule schedule = optSchedule.get();
+
+        BeanUtils.copyProperties(eventsRequest,events);
+
+        events.setCreator(schedule.getCreatorName());
+        eventsRepository.save(events);
         schedule.getEvents().add(events);
         scheduleRepository.save(schedule);
 
@@ -62,8 +71,8 @@ public class EventsServiceImpl implements EventsService {
 
         List<Events> eventsList = optUsers.get().getSchedule().getEvents();
 
-        for(Events e : eventsList){
-            if(e.getUuid().equals(eventUUID))
+        for(Events event : eventsList){
+            if(event.getCreator().equals(optEvent.get().getCreator()) && event.getTitle().equals(optEvent.get().getTitle()))
                 throw new BadRequestException("Esse usuário já possui esse evento");
         }
 
@@ -82,5 +91,15 @@ public class EventsServiceImpl implements EventsService {
         response.put("message",events.getTitle() + " compartilhado com " + users.getNickName());
 
         return response;
+    }
+
+    @Override
+    public List<Events> getAll(UUID scheduleUUID) {
+        Optional<Schedule> optSchedule = scheduleRepository.findById(scheduleUUID);
+
+        if(!optSchedule.isPresent())
+            throw new BadRequestException("Id da agenda inválido");
+
+        return optSchedule.get().getEvents();
     }
 }

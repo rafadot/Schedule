@@ -23,6 +23,8 @@ public class Schedule implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 
+    private String creatorName;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "schedule_uuid")
     private List<Contacts> contacts;

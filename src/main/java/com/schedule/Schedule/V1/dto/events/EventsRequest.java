@@ -32,7 +32,4 @@ public class EventsRequest {
     @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endDate;
-
-    @NotBlank
-    private String creator;
 }

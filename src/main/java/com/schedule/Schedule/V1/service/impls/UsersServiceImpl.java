@@ -43,6 +43,7 @@ public class UsersServiceImpl implements UsersService {
         Schedule schedule = new Schedule();
         BeanUtils.copyProperties(usersRequest, users);
 
+        schedule.setCreatorName(users.getNickName());
         scheduleRepository.save(schedule);
         users.setPassword(encoder.encode(users.getPassword()));
         users.setSchedule(schedule);

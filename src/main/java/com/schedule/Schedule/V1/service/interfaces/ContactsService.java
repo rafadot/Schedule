@@ -18,4 +18,6 @@ public interface ContactsService {
     List<Contacts> getAll(UUID scheduleUUID);
 
     ContactsResponse getById(UUID uuid);
+
+    Map<String,String> manyDeleted(List<UUID> idList);
 }

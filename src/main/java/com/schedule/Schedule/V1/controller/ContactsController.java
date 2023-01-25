@@ -31,6 +31,11 @@ public class ContactsController {
         return new ResponseEntity<>(contactsService.deleteContact(uuid) ,HttpStatus.OK);
     }
 
+    @DeleteMapping("/manyDeleted")
+    public ResponseEntity<Map<String,String>> manyDeleted(@RequestBody List<UUID> contactsIdList){
+        return new ResponseEntity<>(contactsService.manyDeleted(contactsIdList),HttpStatus.OK);
+    }
+
     @PatchMapping
     public ResponseEntity<ContactsResponse> updates(@RequestParam UUID uuid, @RequestBody ContactsRequest updates){
         return new ResponseEntity<>(contactsService.update(uuid ,updates) , HttpStatus.OK);

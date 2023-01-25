@@ -103,4 +103,22 @@ public class ContactsServiceImpl implements ContactsService {
         return response;
     }
 
+    @Override
+    public Map<String, String> manyDeleted(List<UUID> idList) {
+        long count = 0;
+        for (UUID id : idList){
+            Optional<Contacts> contacts = contactsRepository.findById(id);
+
+            if(!contacts.isPresent())
+                throw new BadRequestException("Id(s) inválido(os)");
+
+            contactsRepository.deleteById(id);
+            count++;
+        }
+        Map<String,String> response = new HashMap<>();
+        response.put("message",count + " contatos deletados com sucesso!");
+
+        return response;
+    }
+
 }

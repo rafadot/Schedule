@@ -28,6 +28,11 @@ public class ContactsServiceImpl implements ContactsService {
         if(!schedule.isPresent())
             throw new BadRequestException("Id não encontrado");
 
+        for(Contacts contacts : schedule.get().getContacts()){
+            if(contacts.getNickname().equals(contactsRequest.getNickname()))
+                throw new BadRequestException("Contato já existe!");
+        }
+
         Contacts contacts = new Contacts();
         BeanUtils.copyProperties(contactsRequest , contacts);
 

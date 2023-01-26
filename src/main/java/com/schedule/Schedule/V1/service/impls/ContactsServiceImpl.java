@@ -116,7 +116,11 @@ public class ContactsServiceImpl implements ContactsService {
             count++;
         }
         Map<String,String> response = new HashMap<>();
-        response.put("message",count + " contatos deletados com sucesso!");
+
+        if(count>1)
+            response.put("message",count + " contatos deletados com sucesso!");
+
+        response.put("message","contato deletado com sucesso!");
 
         return response;
     }

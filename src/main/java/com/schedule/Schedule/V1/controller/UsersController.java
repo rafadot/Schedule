@@ -1,5 +1,6 @@
 package com.schedule.Schedule.V1.controller;
 
+import com.schedule.Schedule.V1.dto.users.UserFriendsResponse;
 import com.schedule.Schedule.V1.dto.users.UsersRequest;
 import com.schedule.Schedule.V1.dto.users.UsersResponse;
 import com.schedule.Schedule.V1.service.interfaces.UsersService;
@@ -41,16 +42,4 @@ public class UsersController {
     }
 
 
-
-
-
-    @GetMapping("/addFriend")
-    public ResponseEntity<UsersResponse> addFriend(@RequestParam UUID userUUID, @RequestParam UUID friendUUID){
-        return new ResponseEntity<>(usersService.addFriend(userUUID,friendUUID),HttpStatus.OK);
-    }
-
-    @GetMapping("/getFriendsUser")
-    public ResponseEntity<List<UsersResponse>> getUserFriends(@RequestParam UUID userUUID){
-        return new ResponseEntity<>(usersService.getFriendsUser(userUUID),HttpStatus.OK);
-    }
 }

@@ -1,5 +1,6 @@
 package com.schedule.Schedule.V1.service.impls;
 
+import com.schedule.Schedule.V1.dto.users.UserFriendsResponse;
 import com.schedule.Schedule.V1.mapper.UsersMapper;
 import com.schedule.Schedule.V1.model.Schedule;
 import com.schedule.Schedule.V1.model.Users;
@@ -98,50 +99,5 @@ public class UsersServiceImpl implements UsersService {
         response.put("message", name + " exluído com sucesso!");
 
         return response;
-    }
-
-    @Override
-    public UsersResponse addFriend(UUID user, UUID friend) {
-        Optional<Users> optUsers = usersRepository.findById(user);
-
-        if(!optUsers.isPresent())
-            throw new BadRequestException("Id do usuário inválido");
-
-        Optional<Users> optFriends = usersRepository.findById(friend);
-
-        if(!optFriends.isPresent())
-            throw new BadRequestException("Id do friend inválido");
-
-        if(optUsers.get().getFriends().contains(optFriends.get()))
-            throw new BadRequestException(optFriends.get().getNickName() + " já é seu amigo");
-
-        optUsers.get().getFriends().add(optFriends.get());
-        usersRepository.save(optUsers.get());
-
-        UsersResponse response = new UsersResponse();
-        BeanUtils.copyProperties(optFriends.get(),response);
-        response.setScheduleUUID(optFriends.get().getSchedule().getUuid());
-
-        return response;
-    }
-
-    @Override
-    public List<UsersResponse> getFriendsUser(UUID userUUID) {
-        Optional<Users> optUsers = usersRepository.findById(userUUID);
-
-        if(!optUsers.isPresent())
-            throw new BadRequestException("Id do usuário inválido");
-
-        Users users = optUsers.get();
-
-        return users.getFriends()
-                .stream()
-                .map(m ->{
-                    UsersResponse response = new UsersResponse();
-                    usersMapper.usersResponseMapper(m,response);
-                    response.setScheduleUUID(m.getSchedule().getUuid());
-                    return response;
-                }).collect(Collectors.toList());
-
     }
 }

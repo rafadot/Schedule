@@ -1,5 +1,6 @@
 package com.schedule.Schedule.V1.service.interfaces;
 
+import com.schedule.Schedule.V1.dto.users.UserFriendsResponse;
 import com.schedule.Schedule.V1.dto.users.UsersRequest;
 import com.schedule.Schedule.V1.dto.users.UsersResponse;
 
@@ -15,8 +16,4 @@ public interface UsersService {
     UsersResponse getUserById(UUID uuid);
 
     Map<String, String> delete(UUID uuid);
-
-    UsersResponse addFriend(UUID user, UUID friend);
-
-    List<UsersResponse> getFriendsUser(UUID userUUID);
 }

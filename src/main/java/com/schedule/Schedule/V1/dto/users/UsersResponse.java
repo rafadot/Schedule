@@ -26,5 +26,5 @@ public class UsersResponse {
 
     private Genre genre;
 
-    private UUID scheduleUUID = new Schedule().getUuid();
+    private UUID scheduleUUID;
 }

@@ -79,10 +79,9 @@ public class UsersServiceImpl implements UsersService {
         if(!usersOpt.isPresent())
             throw new BadRequestException("Id inválido");
 
-        Users users = usersOpt.get();
         UsersResponse response = new UsersResponse();
-        BeanUtils.copyProperties(users,response);
-        response.setScheduleUUID(users.getSchedule().getUuid());
+        BeanUtils.copyProperties(usersOpt.get(),response);
+        response.setScheduleUUID(usersOpt.get().getSchedule().getUuid());
         return response;
     }
 
@@ -91,7 +90,7 @@ public class UsersServiceImpl implements UsersService {
         Optional<Users> users = usersRepository.findById(uuid);
 
         if(!users.isPresent())
-            throw new BadRequestException("Id não inválido");
+            throw new BadRequestException("Id inválido");
 
         String name = users.get().getNickName();
         usersRepository.deleteById(uuid);
@@ -99,5 +98,50 @@ public class UsersServiceImpl implements UsersService {
         response.put("message", name + " exluído com sucesso!");
 
         return response;
+    }
+
+    @Override
+    public UsersResponse addFriend(UUID user, UUID friend) {
+        Optional<Users> optUsers = usersRepository.findById(user);
+
+        if(!optUsers.isPresent())
+            throw new BadRequestException("Id do usuário inválido");
+
+        Optional<Users> optFriends = usersRepository.findById(friend);
+
+        if(!optFriends.isPresent())
+            throw new BadRequestException("Id do friend inválido");
+
+        if(optUsers.get().getFriends().contains(optFriends.get()))
+            throw new BadRequestException(optFriends.get().getNickName() + " já é seu amigo");
+
+        optUsers.get().getFriends().add(optFriends.get());
+        usersRepository.save(optUsers.get());
+
+        UsersResponse response = new UsersResponse();
+        BeanUtils.copyProperties(optFriends.get(),response);
+        response.setScheduleUUID(optFriends.get().getSchedule().getUuid());
+
+        return response;
+    }
+
+    @Override
+    public List<UsersResponse> getFriendsUser(UUID userUUID) {
+        Optional<Users> optUsers = usersRepository.findById(userUUID);
+
+        if(!optUsers.isPresent())
+            throw new BadRequestException("Id do usuário inválido");
+
+        Users users = optUsers.get();
+
+        return users.getFriends()
+                .stream()
+                .map(m ->{
+                    UsersResponse response = new UsersResponse();
+                    usersMapper.usersResponseMapper(m,response);
+                    response.setScheduleUUID(m.getSchedule().getUuid());
+                    return response;
+                }).collect(Collectors.toList());
+
     }
 }

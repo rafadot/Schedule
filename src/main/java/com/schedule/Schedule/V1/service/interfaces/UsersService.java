@@ -5,7 +5,6 @@ import com.schedule.Schedule.V1.dto.users.UsersResponse;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface UsersService {
@@ -16,4 +15,8 @@ public interface UsersService {
     UsersResponse getUserById(UUID uuid);
 
     Map<String, String> delete(UUID uuid);
+
+    UsersResponse addFriend(UUID user, UUID friend);
+
+    List<UsersResponse> getFriendsUser(UUID userUUID);
 }

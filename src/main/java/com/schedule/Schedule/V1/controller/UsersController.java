@@ -6,7 +6,6 @@ import com.schedule.Schedule.V1.service.interfaces.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -41,4 +40,17 @@ public class UsersController {
         return new ResponseEntity<>(usersService.getUserById(uuid),HttpStatus.OK);
     }
 
+
+
+
+
+    @GetMapping("/addFriend")
+    public ResponseEntity<UsersResponse> addFriend(@RequestParam UUID userUUID, @RequestParam UUID friendUUID){
+        return new ResponseEntity<>(usersService.addFriend(userUUID,friendUUID),HttpStatus.OK);
+    }
+
+    @GetMapping("/getFriendsUser")
+    public ResponseEntity<List<UsersResponse>> getUserFriends(@RequestParam UUID userUUID){
+        return new ResponseEntity<>(usersService.getFriendsUser(userUUID),HttpStatus.OK);
+    }
 }

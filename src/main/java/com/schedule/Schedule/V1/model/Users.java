@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -42,4 +43,12 @@ public class Users implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "schedule_uuid")
     private Schedule schedule;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_friends",
+            joinColumns = @JoinColumn(name = "user_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "friend_uuid")
+    )
+    private List<Users> friends;
 }

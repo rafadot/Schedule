@@ -125,7 +125,7 @@ public class ContactsServiceImpl implements ContactsService {
         if(count>1)
             response.put("message",count + " contatos deletados com sucesso!");
 
-        response.put("message","contato deletado com sucesso!");
+        response.put("message","Contato deletado com sucesso!");
 
         return response;
     }

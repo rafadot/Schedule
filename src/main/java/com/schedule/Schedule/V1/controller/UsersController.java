@@ -1,12 +1,12 @@
 package com.schedule.Schedule.V1.controller;
 
+import com.schedule.Schedule.V1.dto.users.UserFriendsResponse;
 import com.schedule.Schedule.V1.dto.users.UsersRequest;
 import com.schedule.Schedule.V1.dto.users.UsersResponse;
 import com.schedule.Schedule.V1.service.interfaces.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,5 +40,6 @@ public class UsersController {
     public ResponseEntity<UsersResponse> getUserById(@RequestParam UUID uuid){
         return new ResponseEntity<>(usersService.getUserById(uuid),HttpStatus.OK);
     }
+
 
 }

@@ -1,11 +1,11 @@
 package com.schedule.Schedule.V1.service.interfaces;
 
+import com.schedule.Schedule.V1.dto.users.UserFriendsResponse;
 import com.schedule.Schedule.V1.dto.users.UsersRequest;
 import com.schedule.Schedule.V1.dto.users.UsersResponse;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface UsersService {

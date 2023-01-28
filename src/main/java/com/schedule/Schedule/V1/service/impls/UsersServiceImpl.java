@@ -1,5 +1,6 @@
 package com.schedule.Schedule.V1.service.impls;
 
+import com.schedule.Schedule.V1.dto.users.UserFriendsResponse;
 import com.schedule.Schedule.V1.mapper.UsersMapper;
 import com.schedule.Schedule.V1.model.Schedule;
 import com.schedule.Schedule.V1.model.Users;
@@ -79,10 +80,9 @@ public class UsersServiceImpl implements UsersService {
         if(!usersOpt.isPresent())
             throw new BadRequestException("Id inválido");
 
-        Users users = usersOpt.get();
         UsersResponse response = new UsersResponse();
-        BeanUtils.copyProperties(users,response);
-        response.setScheduleUUID(users.getSchedule().getUuid());
+        BeanUtils.copyProperties(usersOpt.get(),response);
+        response.setScheduleUUID(usersOpt.get().getSchedule().getUuid());
         return response;
     }
 
@@ -91,7 +91,7 @@ public class UsersServiceImpl implements UsersService {
         Optional<Users> users = usersRepository.findById(uuid);
 
         if(!users.isPresent())
-            throw new BadRequestException("Id não inválido");
+            throw new BadRequestException("Id inválido");
 
         String name = users.get().getNickName();
         usersRepository.deleteById(uuid);

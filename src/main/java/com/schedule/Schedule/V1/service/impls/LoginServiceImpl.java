@@ -24,14 +24,25 @@ public class LoginServiceImpl implements LoginService {
 
     private final PasswordEncoder encoder;
 
-    @Override
     public Map<String, UUID> login(Login login) {
-        Optional<Users> optUsers = usersRepository.findByEmail(login.getEmail());
+        Optional<Users> optUsers;
+        Users users = new Users();
 
-        if(!optUsers.isPresent())
-            throw new BadRequestException("Email não cadastrado");
-        
-        Users users = optUsers.get();
+        if(login.getType().toString().equals("EMAIL")){
+            optUsers = usersRepository.findByEmail(login.getEmailOrNickName());
+            if(!optUsers.isPresent())
+                throw new BadRequestException("Email não cadastrado");
+
+            users = optUsers.get();
+
+        }else if(login.getType().toString().equals("NICKNAME")){
+            optUsers = usersRepository.findByNickName(login.getEmailOrNickName());
+            if(!optUsers.isPresent())
+                throw new BadRequestException("Usuário não cadastrado");
+
+            users = optUsers.get();
+
+        }
 
         if(!encoder.matches(login.getPassword(), users.getPassword()))
             throw new BadRequestException("Senha inválida");

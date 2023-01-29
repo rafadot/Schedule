@@ -59,20 +59,30 @@ public class ContactsServiceImpl implements ContactsService {
         contactsRepository.deleteById(uuid);
 
         Map<String, String> response = new HashMap<>();
-        response.put("message", name + " deletado com sucesso");
+        response.put("message", name + " deletado com sucesso!");
 
         return response;
     }
 
     @Override
-    public ContactsResponse update(UUID uuid, ContactsRequest contactsRequest) {
-        Optional<Contacts> optContacts = contactsRepository.findById(uuid);
+    public ContactsResponse update(UUID scheduleUUID,UUID contactUUID, ContactsRequest contactsRequest) {
+        Optional<Schedule> optSchedule = scheduleRepository.findById(scheduleUUID);
+
+        if(!optSchedule.isPresent())
+            throw new BadRequestException("Id da agenda não encontrado");
+
+        Optional<Contacts> optContacts = contactsRepository.findById(contactUUID);
 
         if(!optContacts.isPresent())
-            throw new BadRequestException("Contato não encontrado");
+            throw new BadRequestException("Contao não existe");
+
+        for(Contacts c : optSchedule.get().getContacts()){
+            if(c.getNickname().equals(optContacts.get().getNickname()))
+                throw new BadRequestException("Esse apelido já existe, por favor escolher outro.");
+        }
 
         Contacts contacts = Contacts.builder()
-                .uuid(uuid)
+                .uuid(contactUUID)
                 .name(contactsRequest.getName() != null ? contactsRequest.getName() : optContacts.get().getName())
                 .nickname(contactsRequest.getNickname() != null ? contactsRequest.getNickname() : optContacts.get().getNickname())
                 .phoneNumber(contactsRequest.getPhoneNumber() != null ? contactsRequest.getPhoneNumber() : optContacts.get().getPhoneNumber())

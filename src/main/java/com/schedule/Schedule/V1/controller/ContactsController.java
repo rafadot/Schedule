@@ -37,8 +37,11 @@ public class ContactsController {
     }
 
     @PatchMapping
-    public ResponseEntity<ContactsResponse> updates(@RequestParam UUID uuid, @RequestBody ContactsRequest updates){
-        return new ResponseEntity<>(contactsService.update(uuid ,updates) , HttpStatus.OK);
+    public ResponseEntity<ContactsResponse> updates
+            (@RequestParam UUID scheduleUUID,
+             @RequestParam UUID contactUUID,
+             @RequestBody ContactsRequest updates){
+        return new ResponseEntity<>(contactsService.update(scheduleUUID,contactUUID,updates) , HttpStatus.OK);
     }
 
     @GetMapping

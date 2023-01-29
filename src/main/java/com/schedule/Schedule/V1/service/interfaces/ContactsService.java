@@ -13,7 +13,7 @@ public interface ContactsService {
 
     Map<String, String> deleteContact(UUID uuid);
 
-    ContactsResponse update(UUID uuid, ContactsRequest contactsRequest);
+    ContactsResponse update(UUID scheduleUUID,UUID contactUUID, ContactsRequest contactsRequest);
 
     List<Contacts> getAll(UUID scheduleUUID);
 

@@ -6,7 +6,6 @@ import com.schedule.Schedule.V1.service.interfaces.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +21,9 @@ import java.util.UUID;
 public class LoginController {
 
     private final LoginService loginService;
-    private final SimpMessageSendingOperations messageSendingOperations;
 
     @PostMapping
     ResponseEntity<Map<String, UUID>> login(@Valid @RequestBody Login login){
-        messageSendingOperations.convertAndSend("/topic/notifications", login.getEmailOrNickName());
         return new ResponseEntity<>(loginService.login(login), HttpStatus.OK);
     }
 }

@@ -20,7 +20,7 @@ public class Notes implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    UUID uuid;
+    private UUID uuid;
 
     private String title;
 

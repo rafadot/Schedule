@@ -26,6 +26,6 @@ public class ExceptionsHandler {
                 .path(request.getRequestURI())
                 .build();
 
-        return ResponseEntity.status(status).body(err);
+        return new ResponseEntity<>(err,status);
     }
 }

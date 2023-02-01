@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -19,5 +21,6 @@ public class TaskNotesRequest {
     private String description;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     private TaskNotesStatus status;
 }

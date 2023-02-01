@@ -51,12 +51,4 @@ public class Users implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "friend_uuid")
     )
     private List<Users> friends;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_notifications",
-            joinColumns = @JoinColumn(name = "user_uuid"),
-            inverseJoinColumns = @JoinColumn(name = "notifications_uuid")
-    )
-    private List<Notifications> notifications;
 }

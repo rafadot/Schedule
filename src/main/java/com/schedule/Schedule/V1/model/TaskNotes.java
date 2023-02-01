@@ -1,6 +1,6 @@
 package com.schedule.Schedule.V1.model;
 
-import com.schedule.Schedule.V1.enums.NotificationStatus;
+import com.schedule.Schedule.V1.enums.TaskNotesStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
@@ -18,17 +17,15 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Notifications implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class TaskNotes {
+    private static final long serialVersionUid = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID uuid;
 
-    private String title;
-
     private String description;
 
-    private NotificationStatus status;
+    private TaskNotesStatus status;
+
 }

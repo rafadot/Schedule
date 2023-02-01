@@ -1,6 +1,5 @@
 package com.schedule.Schedule.V1.controller;
 
-import com.schedule.Schedule.V1.dto.users.UsersResponse;
 import com.schedule.Schedule.V1.model.Login;
 import com.schedule.Schedule.V1.service.interfaces.LoginService;
 import lombok.RequiredArgsConstructor;

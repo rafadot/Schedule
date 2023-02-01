@@ -2,8 +2,12 @@ package com.schedule.Schedule.V1.controller;
 
 import com.schedule.Schedule.V1.dto.notes.NotesRequest;
 import com.schedule.Schedule.V1.dto.notes.NotesResponse;
+import com.schedule.Schedule.V1.dto.notes.tasks.TaskNotesRequest;
+import com.schedule.Schedule.V1.dto.notes.tasks.TaskNotesResponse;
 import com.schedule.Schedule.V1.model.Notes;
+import com.schedule.Schedule.V1.model.TaskNotes;
 import com.schedule.Schedule.V1.service.interfaces.NotesService;
+import com.schedule.Schedule.V1.service.interfaces.TaskNotesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,7 @@ import java.util.UUID;
 public class NotesController {
 
     private final NotesService notesService;
+    private final TaskNotesService taskNotesService;
 
     @PostMapping
     public ResponseEntity<NotesResponse> create(@Valid @RequestBody NotesRequest notesRequest, @RequestParam UUID scheduleUUID){
@@ -44,5 +49,22 @@ public class NotesController {
     @GetMapping("/getById")
     public ResponseEntity<NotesResponse> getById(@RequestParam UUID uuid){
         return new ResponseEntity<>(notesService.getById(uuid),HttpStatus.OK);
+    }
+
+    @PostMapping("/taskNotes")
+    public ResponseEntity<TaskNotesResponse> create(
+            @RequestParam UUID noteUUID,
+            @RequestBody TaskNotesRequest taskNotesRequest){
+        return new ResponseEntity<>(taskNotesService.create(noteUUID,taskNotesRequest),HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/taskNotes")
+    public ResponseEntity<Map<String,String>> deleteTask(@RequestParam UUID taskUUID){
+        return new ResponseEntity<>(taskNotesService.deleteTask(taskUUID),HttpStatus.OK);
+    }
+
+    @PutMapping("/taskNotes")
+    public ResponseEntity<TaskNotesResponse> putTaskNotes(@RequestBody TaskNotes taskNotes){
+        return new ResponseEntity<>(taskNotesService.putTaskNotes(taskNotes),HttpStatus.OK);
     }
 }

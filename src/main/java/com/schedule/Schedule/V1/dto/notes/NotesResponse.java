@@ -1,8 +1,10 @@
 package com.schedule.Schedule.V1.dto.notes;
 
+import com.schedule.Schedule.V1.model.TaskNotes;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -21,4 +23,6 @@ public class NotesResponse {
     private LocalDateTime date;
 
     private String color;
+
+    private List<TaskNotes> taskNotes;
 }

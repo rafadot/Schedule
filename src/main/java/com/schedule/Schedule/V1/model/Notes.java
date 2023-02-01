@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,4 +31,8 @@ public class Notes implements Serializable {
     private LocalDateTime date;
 
     private String color;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "notes_uuid")
+    private List<TaskNotes> taskNotes;
 }

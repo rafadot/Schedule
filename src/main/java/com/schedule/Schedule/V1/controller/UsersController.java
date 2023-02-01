@@ -2,10 +2,6 @@ package com.schedule.Schedule.V1.controller;
 
 import com.schedule.Schedule.V1.dto.users.UsersRequest;
 import com.schedule.Schedule.V1.dto.users.UsersResponse;
-import com.schedule.Schedule.V1.model.Notifications;
-import com.schedule.Schedule.V1.model.Users;
-import com.schedule.Schedule.V1.repository.NotificationsRepository;
-import com.schedule.Schedule.V1.repository.UsersRepository;
 import com.schedule.Schedule.V1.service.interfaces.UsersService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController

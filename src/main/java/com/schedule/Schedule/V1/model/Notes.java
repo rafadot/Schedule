@@ -5,7 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,7 +30,10 @@ public class Notes implements Serializable {
     private String description;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime date;
+    private LocalDate date;
+
+    @DateTimeFormat(pattern = "HH:mm:ss")
+    private LocalTime time;
 
     private String color;
 

@@ -54,7 +54,7 @@ public class NotesController {
     @PostMapping("/taskNotes")
     public ResponseEntity<TaskNotesResponse> create(
             @RequestParam UUID noteUUID,
-            @RequestBody TaskNotesRequest taskNotesRequest){
+            @Valid @RequestBody TaskNotesRequest taskNotesRequest){
         return new ResponseEntity<>(taskNotesService.create(noteUUID,taskNotesRequest),HttpStatus.CREATED);
     }
 

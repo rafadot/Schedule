@@ -60,6 +60,10 @@ public class TaskNotesServiceImpl implements TaskNotesService {
 
     @Override
     public TaskNotesResponse putTaskNotes(TaskNotes taskNotes) {
+
+        if(taskNotes.getDescription() == null || taskNotes.getDescription().equals("") || taskNotes.getStatus() == null)
+            throw new BadRequestException("Preencha todos os campos!");
+
         taskNotesRepository.save(taskNotes);
         TaskNotesResponse response = new TaskNotesResponse();
         BeanUtils.copyProperties(taskNotes,response);

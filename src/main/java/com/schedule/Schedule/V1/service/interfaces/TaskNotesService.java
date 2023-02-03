@@ -13,5 +13,5 @@ public interface TaskNotesService {
 
     Map<String, String> deleteTask(UUID taskUUID);
 
-    TaskNotesResponse putTaskNotes(TaskNotes taskNotes);
+    TaskNotesResponse patchTask(UUID taskUUID ,TaskNotesRequest taskNotesRequest);
 }

@@ -1,10 +1,7 @@
 package com.schedule.Schedule.V1.model;
 
 import com.schedule.Schedule.V1.enums.TaskNotesStatus;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -14,6 +11,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class TaskNotes {
     private static final long serialVersionUid = 1L;
 

@@ -59,10 +59,17 @@ public class TaskNotesServiceImpl implements TaskNotesService {
     }
 
     @Override
-    public TaskNotesResponse putTaskNotes(TaskNotes taskNotes) {
+    public TaskNotesResponse patchTask(UUID taskUUID ,TaskNotesRequest taskNotesRequest) {
+        Optional<TaskNotes> optTaskNotes = taskNotesRepository.findById(taskUUID);
 
-        if(taskNotes.getDescription() == null || taskNotes.getDescription().equals("") || taskNotes.getStatus() == null)
-            throw new BadRequestException("Preencha todos os campos!");
+        if(!optTaskNotes.isPresent())
+            throw new BadRequestException("Id da tasknote inválido");
+
+        TaskNotes taskNotes = TaskNotes.builder()
+                .uuid(taskUUID)
+                .description(taskNotesRequest.getDescription() != null ? taskNotesRequest.getDescription() : optTaskNotes.get().getDescription())
+                .status(taskNotesRequest.getStatus() != null ? taskNotesRequest.getStatus() : optTaskNotes.get().getStatus())
+                .build();
 
         taskNotesRepository.save(taskNotes);
         TaskNotesResponse response = new TaskNotesResponse();

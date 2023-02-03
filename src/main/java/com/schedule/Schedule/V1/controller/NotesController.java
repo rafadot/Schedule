@@ -63,8 +63,9 @@ public class NotesController {
         return new ResponseEntity<>(taskNotesService.deleteTask(taskUUID),HttpStatus.OK);
     }
 
-    @PutMapping("/taskNotes")
-    public ResponseEntity<TaskNotesResponse> putTaskNotes(@RequestBody TaskNotes taskNotes){
-        return new ResponseEntity<>(taskNotesService.putTaskNotes(taskNotes),HttpStatus.OK);
+    @PatchMapping("/taskNotes")
+    public ResponseEntity<TaskNotesResponse> patchTask(@RequestParam UUID taskUUID,
+                                                       @RequestBody TaskNotesRequest taskNotesRequest){
+        return new ResponseEntity<>(taskNotesService.patchTask(taskUUID,taskNotesRequest),HttpStatus.OK);
     }
 }

@@ -64,8 +64,7 @@ public class NotesController {
     }
 
     @PatchMapping("/taskNotes")
-    public ResponseEntity<TaskNotesResponse> patchTask(@RequestParam UUID taskUUID,
-                                                       @RequestBody TaskNotesRequest taskNotesRequest){
-        return new ResponseEntity<>(taskNotesService.patchTask(taskUUID,taskNotesRequest),HttpStatus.OK);
+    public ResponseEntity<List<TaskNotes>> manyPatchTask(@RequestBody List<TaskNotes> taskNotesRequest){
+        return new ResponseEntity<>(taskNotesService.manyPatchTask(taskNotesRequest),HttpStatus.OK);
     }
 }

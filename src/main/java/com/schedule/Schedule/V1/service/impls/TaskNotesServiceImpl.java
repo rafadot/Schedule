@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -59,22 +56,25 @@ public class TaskNotesServiceImpl implements TaskNotesService {
     }
 
     @Override
-    public TaskNotesResponse patchTask(UUID taskUUID ,TaskNotesRequest taskNotesRequest) {
-        Optional<TaskNotes> optTaskNotes = taskNotesRepository.findById(taskUUID);
+    public List<TaskNotes> manyPatchTask(List<TaskNotes> taskNotesList) {
+        List<TaskNotes> responseList = new ArrayList<>();
 
-        if(!optTaskNotes.isPresent())
-            throw new BadRequestException("Id da tasknote inválido");
+        for(TaskNotes task : taskNotesList){
+            Optional<TaskNotes> optTaskNotes = taskNotesRepository.findById(task.getUuid());
 
-        TaskNotes taskNotes = TaskNotes.builder()
-                .uuid(taskUUID)
-                .description(taskNotesRequest.getDescription() != null ? taskNotesRequest.getDescription() : optTaskNotes.get().getDescription())
-                .status(taskNotesRequest.getStatus() != null ? taskNotesRequest.getStatus() : optTaskNotes.get().getStatus())
-                .build();
+            if(!optTaskNotes.isPresent())
+                throw new BadRequestException("Envie Ids válidos");
 
-        taskNotesRepository.save(taskNotes);
-        TaskNotesResponse response = new TaskNotesResponse();
-        BeanUtils.copyProperties(taskNotes,response);
-        return response;
+            TaskNotes taskNotes = TaskNotes.builder()
+                    .uuid(task.getUuid())
+                    .description(task.getDescription() != null ? task.getDescription() : optTaskNotes.get().getDescription())
+                    .status(task.getStatus() != null ? task.getStatus() : optTaskNotes.get().getStatus())
+                    .build();
+
+            taskNotesRepository.save(taskNotes);
+            responseList.add(taskNotes);
+        }
+        return responseList;
     }
     //
 }

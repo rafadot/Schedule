@@ -1,5 +1,6 @@
 package com.schedule.Schedule.V1.dto.notes;
 
+import com.schedule.Schedule.V1.enums.NotesColors;
 import com.schedule.Schedule.V1.model.TaskNotes;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -27,7 +28,7 @@ public class NotesResponse {
 
     private LocalTime time;
 
-    private String color;
+    private NotesColors color;
 
     private List<TaskNotes> taskNotes;
 }

@@ -1,5 +1,6 @@
 package com.schedule.Schedule.V1.model;
 
+import com.schedule.Schedule.V1.enums.NotesColors;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,7 +36,7 @@ public class Notes implements Serializable {
     @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalTime time;
 
-    private String color;
+    private NotesColors color;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "notes_uuid")

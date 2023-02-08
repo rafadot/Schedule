@@ -1,6 +1,6 @@
 package com.schedule.Schedule.V1.dto.schedule;
 
-import com.schedule.Schedule.V1.model.Contacts;
+import com.schedule.Schedule.V1.dto.contacts.ContactsResponse;
 import com.schedule.Schedule.V1.model.Events;
 import com.schedule.Schedule.V1.model.Notes;
 import lombok.*;
@@ -19,7 +19,7 @@ public class ScheduleResponse {
 
     private String creatorName;
 
-    private List<Contacts> contacts;
+    private List<ContactsResponse> contacts;
 
     private List<Notes> notes;
 

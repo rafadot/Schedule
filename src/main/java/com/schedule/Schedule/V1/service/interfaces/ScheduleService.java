@@ -10,5 +10,5 @@ public interface ScheduleService {
 
     ScheduleResponse getByScheduleId(UUID scheduleId);
 
-    ScheduleResponse getByUserId(UUID userId);
+//    ScheduleResponse getByUserId(UUID userId);
 }

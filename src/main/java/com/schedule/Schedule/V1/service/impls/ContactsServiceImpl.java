@@ -165,7 +165,7 @@ public class ContactsServiceImpl implements ContactsService {
         contactsPageResponse.setPage(pageable.getPageNumber());
         contactsPageResponse.setSize(pageable.getPageSize());
         contactsPageResponse.setTotalPages(contacts.getTotalPages());
-        contactsPageResponse.setContactsResponse(contacts
+        contactsPageResponse.setContacts(contacts
                 .stream()
                 .map(m->ContactsResponse.builder()
                         .uuid(m.getUuid())

@@ -21,8 +21,8 @@ public class ScheduleController {
         return new ResponseEntity<>(scheduleService.getByScheduleId(uuid),HttpStatus.OK);
     }
 
-    @GetMapping("/userId")
-    ResponseEntity<ScheduleResponse> getByUserId(@RequestParam UUID uuid){
-        return new ResponseEntity<>(scheduleService.getByUserId(uuid),HttpStatus.OK);
-    }
+//    @GetMapping("/userId")
+//    ResponseEntity<ScheduleResponse> getByUserId(@RequestParam UUID uuid){
+//        return new ResponseEntity<>(scheduleService.getByUserId(uuid),HttpStatus.OK);
+//    }
 }

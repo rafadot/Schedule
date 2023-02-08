@@ -1,10 +1,13 @@
 package com.schedule.Schedule.V1.controller;
 
+import com.schedule.Schedule.V1.dto.contacts.ContactsPageResponse;
 import com.schedule.Schedule.V1.dto.contacts.ContactsRequest;
 import com.schedule.Schedule.V1.dto.contacts.ContactsResponse;
 import com.schedule.Schedule.V1.model.Contacts;
 import com.schedule.Schedule.V1.service.interfaces.ContactsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,13 +48,18 @@ public class ContactsController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Contacts>> getAll(@RequestParam UUID scheduleUUID){
+    public ResponseEntity<List<ContactsResponse>> getAll(@RequestParam UUID scheduleUUID){
         return new ResponseEntity<>(contactsService.getAll(scheduleUUID),HttpStatus.OK);
     }
 
     @GetMapping("/getById")
     public ResponseEntity<ContactsResponse> getById(@RequestParam UUID uuid){
         return new ResponseEntity<>(contactsService.getById(uuid),HttpStatus.OK);
+    }
+
+    @GetMapping("/paged")
+    public ResponseEntity<ContactsPageResponse> paged(@RequestParam UUID scheduleUUID, Pageable pageable){
+        return new ResponseEntity<>(contactsService.contactsPage(scheduleUUID,pageable),HttpStatus.OK);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.schedule.Schedule.V1.service.impls;
 
+import com.schedule.Schedule.V1.dto.contacts.ContactsPageResponse;
 import com.schedule.Schedule.V1.dto.contacts.ContactsRequest;
 import com.schedule.Schedule.V1.dto.contacts.ContactsResponse;
 import com.schedule.Schedule.V1.model.Contacts;
@@ -10,9 +11,12 @@ import com.schedule.Schedule.V1.service.interfaces.ContactsService;
 import com.schedule.Schedule.exceptions.gerenciment.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -95,13 +99,21 @@ public class ContactsServiceImpl implements ContactsService {
     }
 
     @Override
-    public List<Contacts> getAll(UUID scheduleUUID) {
+    public List<ContactsResponse> getAll(UUID scheduleUUID) {
         Optional<Schedule> optSchedule = scheduleRepository.findById(scheduleUUID);
 
         if(!optSchedule.isPresent())
             throw new BadRequestException("Id da agenda não encontrado");
 
-        return optSchedule.get().getContacts();
+        return optSchedule.get().getContacts().stream()
+                .map(m -> ContactsResponse
+                        .builder()
+                        .uuid(m.getUuid())
+                        .nickname(m.getNickname())
+                        .name(m.getName())
+                        .phoneNumber(m.getPhoneNumber())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -145,4 +157,24 @@ public class ContactsServiceImpl implements ContactsService {
         return response;
     }
 
+    @Override
+    public ContactsPageResponse contactsPage(UUID scheduleId, Pageable pageable) {
+        Page<Contacts> contacts = contactsRepository.findAllByScheduleUuid(scheduleId,pageable);
+        ContactsPageResponse contactsPageResponse = new ContactsPageResponse();
+
+        contactsPageResponse.setPage(pageable.getPageNumber());
+        contactsPageResponse.setSize(pageable.getPageSize());
+        contactsPageResponse.setTotalPages(contacts.getTotalPages());
+        contactsPageResponse.setContactsResponse(contacts
+                .stream()
+                .map(m->ContactsResponse.builder()
+                        .uuid(m.getUuid())
+                        .nickname(m.getNickname())
+                        .name(m.getName())
+                        .phoneNumber(m.getPhoneNumber())
+                        .build()
+                ).collect(Collectors.toList()));
+
+        return contactsPageResponse;
+    }
 }

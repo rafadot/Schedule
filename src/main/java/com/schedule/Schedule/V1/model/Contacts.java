@@ -26,4 +26,8 @@ public class Contacts implements Serializable {
 
     private Long phoneNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "schedule_uuid")
+    private Schedule schedule;
+
 }

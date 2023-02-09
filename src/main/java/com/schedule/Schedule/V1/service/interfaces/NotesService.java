@@ -16,7 +16,7 @@ public interface NotesService {
 
     NotesResponse update(UUID uuid, NotesRequest notesRequest);
 
-    List<Notes> getAll(UUID scheduleUUID);
+    List<NotesResponse> getAll(UUID scheduleUUID);
 
     NotesResponse getById(UUID uuid);
 }

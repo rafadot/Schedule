@@ -42,7 +42,7 @@ public class NotesController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Notes>> getAll(@RequestParam UUID scheduleUUID){
+    public ResponseEntity<List<NotesResponse>> getAll(@RequestParam UUID scheduleUUID){
         return new ResponseEntity<>(notesService.getAll(scheduleUUID),HttpStatus.OK);
     }
 

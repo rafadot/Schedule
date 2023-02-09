@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -79,13 +80,22 @@ public class NotesServiceImpl implements NotesService {
     }
 
     @Override
-    public List<Notes> getAll(UUID scheduleUUID) {
+    public List<NotesResponse> getAll(UUID scheduleUUID) {
         Optional<Schedule> schedule = scheduleRepository.findById(scheduleUUID);
 
         if(!schedule.isPresent())
             throw new BadRequestException("Id da agenda não encontrado");
 
-        return schedule.get().getNotes();
+        return schedule.get().getNotes().stream()
+                .map(m->NotesResponse.builder()
+                        .uuid(m.getUuid())
+                        .title(m.getTitle())
+                        .color(m.getColor())
+                        .taskNotes(m.getTaskNotes())
+                        .description(m.getDescription())
+                        .date(m.getDate())
+                        .time(m.getTime())
+                        .build()).collect(Collectors.toList());
     }
 
     @Override

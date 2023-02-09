@@ -25,32 +25,22 @@ public class LoginServiceImpl implements LoginService {
     private final PasswordEncoder encoder;
 
     public Map<String, UUID> login(Login login) {
-        Optional<Users> optUsers;
-        Users users = new Users();
+        Optional<Users> users = usersRepository.findByEmail(login.getEmailOrNickName());
 
-        if(login.getType().toString().equals("EMAIL")){
-            optUsers = usersRepository.findByEmail(login.getEmailOrNickName());
-            if(!optUsers.isPresent())
-                throw new BadRequestException("Email não cadastrado");
+        if(!users.isPresent()){
+            users = usersRepository.findByNickName(login.getEmailOrNickName());
 
-            users = optUsers.get();
-
-        }else if(login.getType().toString().equals("NICKNAME")){
-            optUsers = usersRepository.findByNickName(login.getEmailOrNickName());
-            if(!optUsers.isPresent())
-                throw new BadRequestException("Usuário não cadastrado");
-
-            users = optUsers.get();
-
+            if(!users.isPresent())
+                throw new BadRequestException("Email ou username inválido");
         }
 
-        if(!encoder.matches(login.getPassword(), users.getPassword()))
+        if(!encoder.matches(login.getPassword(), users.get().getPassword()))
             throw new BadRequestException("Senha inválida");
 
         Map<String, UUID> response = new HashMap<>();
 
-        response.put("userId",users.getUuid());
-        response.put("scheduleId",users.getSchedule().getUuid());
+        response.put("userId",users.get().getUuid());
+        response.put("scheduleId",users.get().getSchedule().getUuid());
 
         return response;
     }

@@ -27,7 +27,7 @@ public class NotesServiceImpl implements NotesService {
         Optional<Schedule> schedule = scheduleRepository.findById(scheduleUUID);
 
         if(!schedule.isPresent())
-            throw new BadRequestException("Erro ao criar nota, id incorreto");
+            throw new BadRequestException("Erro ao criar nota, id da agenda incorreto");
 
         Notes notes = new Notes();
         BeanUtils.copyProperties(notesRequest , notes);

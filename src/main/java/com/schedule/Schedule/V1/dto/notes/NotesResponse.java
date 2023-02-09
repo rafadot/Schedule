@@ -1,5 +1,6 @@
 package com.schedule.Schedule.V1.dto.notes;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.schedule.Schedule.V1.enums.NotesColors;
 import com.schedule.Schedule.V1.model.TaskNotes;
 import lombok.*;
@@ -26,6 +27,7 @@ public class NotesResponse {
 
     private LocalDate date;
 
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime time;
 
     private NotesColors color;

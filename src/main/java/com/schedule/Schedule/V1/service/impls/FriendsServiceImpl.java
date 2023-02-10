@@ -25,8 +25,11 @@ public class FriendsServiceImpl implements FriendsService {
     public UsersResponse addFriend(UUID user, String friendNickName) {
         Optional<Users> optUsers = usersRepository.findById(user);
 
-        if(!optUsers.isPresent() || optUsers.get().getNickName().equals(friendNickName))
+        if(!optUsers.isPresent())
             throw new BadRequestException("Usuário inválido");
+
+        if(optUsers.get().getNickName().equals(friendNickName))
+            throw new BadRequestException("Não é possível adicionar seu prórpio usuário!");
 
         Optional<Users> optFriends = usersRepository.findByNickName(friendNickName);
 

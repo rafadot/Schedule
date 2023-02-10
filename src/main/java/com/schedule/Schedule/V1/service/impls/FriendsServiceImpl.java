@@ -29,7 +29,7 @@ public class FriendsServiceImpl implements FriendsService {
             throw new BadRequestException("Usuário inválido");
 
         if(optUsers.get().getNickName().equals(friendNickName))
-            throw new BadRequestException("Não é possível adicionar seu prórpio usuário!");
+            throw new BadRequestException("Não é possível adicionar seu próprio usuário!");
 
         Optional<Users> optFriends = usersRepository.findByNickName(friendNickName);
 

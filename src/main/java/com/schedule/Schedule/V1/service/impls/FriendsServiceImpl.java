@@ -22,19 +22,19 @@ public class FriendsServiceImpl implements FriendsService {
     private final UsersMapper usersMapper;
 
     @Override
-    public UsersResponse addFriend(UUID user, UUID friend) {
+    public UsersResponse addFriend(UUID user, String friendNickName) {
         Optional<Users> optUsers = usersRepository.findById(user);
 
-        if(!optUsers.isPresent())
-            throw new BadRequestException("Id do usuário inválido");
+        if(!optUsers.isPresent() || optUsers.get().getNickName().equals(friendNickName))
+            throw new BadRequestException("Usuário inválido");
 
-        Optional<Users> optFriends = usersRepository.findById(friend);
+        Optional<Users> optFriends = usersRepository.findByNickName(friendNickName);
 
         if(!optFriends.isPresent())
-            throw new BadRequestException("Id do friend inválido");
+            throw new BadRequestException("Apelido do amigo inválido");
 
         if(optUsers.get().getFriends().contains(optFriends.get()))
-            throw new BadRequestException(optFriends.get().getNickName() + " já é seu amigo");
+            throw new BadRequestException(friendNickName + " já é seu amigo");
 
         optUsers.get().getFriends().add(optFriends.get());
         usersRepository.save(optUsers.get());
@@ -67,16 +67,16 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public Map<String, String> deleteFriend(UUID userUUID, UUID friendUUID) {
+    public Map<String, String> deleteFriend(UUID userUUID, String friendNickName) {
         Optional<Users> optUsers = usersRepository.findById(userUUID);
 
         if(!optUsers.isPresent())
             throw new BadRequestException("Id do usuário inválido");
 
-        Optional<Users> optFriend = usersRepository.findById(friendUUID);
+        Optional<Users> optFriend = usersRepository.findByNickName(friendNickName);
 
         if(!optFriend.isPresent())
-            throw new BadRequestException("Id do friend inválido");
+            throw new BadRequestException("Apelido do amigo inválido");
 
         List<Users> friendList = optUsers.get().getFriends();
         Map<String,String> response = new HashMap<>();
@@ -85,11 +85,11 @@ public class FriendsServiceImpl implements FriendsService {
             if(f.equals(optFriend.get())){
                 optUsers.get().getFriends().remove(optFriend.get());
                 usersRepository.save(optUsers.get());
-                response.put("message",optFriend.get().getNickName() + " deletado com sucesso!");
+                response.put("message",friendNickName + " deletado com sucesso!");
                 return response;
             }
         }
-        response.put("message",optFriend.get().getNickName() + " já foi excluído");
+        response.put("message",friendNickName + " já foi excluído");
         return response;
     }
 }

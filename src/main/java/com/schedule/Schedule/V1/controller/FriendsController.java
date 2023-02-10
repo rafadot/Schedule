@@ -20,8 +20,8 @@ public class FriendsController {
     private final FriendsService friendsService;
 
     @GetMapping("/addFriend")
-    public ResponseEntity<UsersResponse> addFriend(@RequestParam UUID userUUID, @RequestParam UUID friendUUID){
-        return new ResponseEntity<>(friendsService.addFriend(userUUID,friendUUID), HttpStatus.OK);
+    public ResponseEntity<UsersResponse> addFriend(@RequestParam UUID userUUID, @RequestParam String friendNickName){
+        return new ResponseEntity<>(friendsService.addFriend(userUUID,friendNickName), HttpStatus.OK);
     }
 
     @GetMapping("/getFriendsUser")
@@ -30,7 +30,7 @@ public class FriendsController {
     }
 
     @DeleteMapping("/deleteFriend")
-    public ResponseEntity<Map<String,String>> deleteFriend(@RequestParam UUID userUUID, @RequestParam UUID friendUUID){
-        return new ResponseEntity<>(friendsService.deleteFriend(userUUID,friendUUID),HttpStatus.OK);
+    public ResponseEntity<Map<String,String>> deleteFriend(@RequestParam UUID userUUID, @RequestParam String friendNickName){
+        return new ResponseEntity<>(friendsService.deleteFriend(userUUID,friendNickName),HttpStatus.OK);
     }
 }

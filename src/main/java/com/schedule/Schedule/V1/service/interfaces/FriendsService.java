@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.UUID;
 
 public interface FriendsService {
-    UsersResponse addFriend(UUID user, UUID friend);
+    UsersResponse addFriend(UUID user, String friendNickName);
 
     UserFriendsResponse getFriendsUser(UUID userUUID);
 
-    Map<String,String> deleteFriend(UUID userUUID, UUID friendUUID);
+    Map<String,String> deleteFriend(UUID userUUID, String friendNickName);
 }

@@ -1,5 +1,6 @@
-package com.schedule.Schedule.V1.dto.users;
+package com.schedule.Schedule.V1.dto.friends;
 
+import com.schedule.Schedule.V1.dto.users.UsersResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,5 @@ import java.util.List;
 public class UserFriendsResponse {
 
     private long totalFriends;
-    private List<UsersResponse> friendsResponse;
+    private List<FriendsResponse> friendsResponse;
 }

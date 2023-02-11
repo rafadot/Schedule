@@ -1,6 +1,5 @@
 package com.schedule.Schedule.V1.service.interfaces;
 
-import com.schedule.Schedule.V1.dto.users.UserFriendsResponse;
 import com.schedule.Schedule.V1.dto.users.UsersRequest;
 import com.schedule.Schedule.V1.dto.users.UsersResponse;
 

@@ -1,6 +1,5 @@
 package com.schedule.Schedule.V1.service.impls;
 
-import com.schedule.Schedule.V1.dto.users.UserFriendsResponse;
 import com.schedule.Schedule.V1.mapper.UsersMapper;
 import com.schedule.Schedule.V1.model.Schedule;
 import com.schedule.Schedule.V1.model.Users;

@@ -27,8 +27,8 @@ public class EventsController {
     }
 
     @GetMapping("/addFriend")
-    public ResponseEntity<Map<String,String>> addFriendToEvent(@RequestParam UUID eventUUID, @RequestParam UUID usersUUID){
-        return new ResponseEntity<>(eventsService.group(eventUUID,usersUUID),HttpStatus.OK);
+    public ResponseEntity<Map<String,String>> addFriendToEvent(@RequestParam UUID eventUUID, @RequestParam String friendNickName){
+        return new ResponseEntity<>(eventsService.group(eventUUID,friendNickName),HttpStatus.OK);
     }
 
     @GetMapping

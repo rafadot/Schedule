@@ -12,7 +12,7 @@ public interface EventsService {
 
     EventsResponse create(UUID scheduleUUID, EventsRequest eventsRequest);
 
-    Map<String, String> group(UUID eventUUID, UUID usersUUID);
+    Map<String, String> group(UUID eventUUID, String friendNickName);
 
     List<Events> getAll(UUID scheduleUUID);
 }

@@ -31,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
             users = usersRepository.findByNickName(login.getEmailOrNickName());
 
             if(!users.isPresent())
-                throw new BadRequestException("Email ou username inválido");
+                throw new BadRequestException("E-mail ou nome de usuário inválido");
         }
 
         if(!encoder.matches(login.getPassword(), users.get().getPassword()))

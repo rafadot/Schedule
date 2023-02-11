@@ -56,9 +56,9 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public Map<String, String> group(UUID eventUUID, UUID usersUUID) {
+    public Map<String, String> group(UUID eventUUID, String friendNickName) {
         Optional<Events> optEvent = eventsRepository.findById(eventUUID);
-        Optional<Users> optUsers = usersRepository.findById(usersUUID);
+        Optional<Users> optUsers = usersRepository.findByNickName(friendNickName);
 
         if(!optEvent.isPresent() && !optUsers.isPresent())
             throw new BadRequestException("Id do evento e do usuário inválido");
@@ -73,7 +73,7 @@ public class EventsServiceImpl implements EventsService {
 
         for(Events event : eventsList){
             if(event.getCreator().equals(optEvent.get().getCreator()) && event.getTitle().equals(optEvent.get().getTitle()))
-                throw new BadRequestException("Esse usuário já possui esse evento");
+                throw new BadRequestException(friendNickName + " usuário já possui esse evento");
         }
 
         Events events = new Events();
@@ -88,7 +88,7 @@ public class EventsServiceImpl implements EventsService {
 
         Map<String, String> response = new HashMap<>();
 
-        response.put("message",events.getTitle() + " compartilhado com " + users.getNickName());
+        response.put("message",events.getTitle() + " compartilhado com " + friendNickName);
 
         return response;
     }

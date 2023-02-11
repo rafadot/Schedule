@@ -1,6 +1,5 @@
 package com.schedule.Schedule.V1.service.impls;
 
-import com.schedule.Schedule.V1.dto.users.UserFriendsResponse;
 import com.schedule.Schedule.V1.mapper.UsersMapper;
 import com.schedule.Schedule.V1.model.Schedule;
 import com.schedule.Schedule.V1.model.Users;
@@ -33,7 +32,7 @@ public class UsersServiceImpl implements UsersService {
         Optional<Users> nickName = usersRepository.findByNickName(usersRequest.getNickName());
 
         if(email.isPresent() && nickName.isPresent()){
-            throw new BadRequestException("Email e nome de usuário já cadastrados");
+            throw new BadRequestException("E-mail e nome de usuário já cadastrados");
         }else if(email.isPresent()){
             throw new BadRequestException("Email já cadastrado");
         }else if(nickName.isPresent()){

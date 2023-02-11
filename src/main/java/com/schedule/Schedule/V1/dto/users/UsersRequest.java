@@ -11,7 +11,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 @Getter
@@ -30,7 +29,6 @@ public class UsersRequest {
     private String fullName;
 
     @NotBlank
-    @Pattern(regexp = "^[^@]+$", message = "nickName não pode haver @")
     private String nickName;
 
     @NotNull

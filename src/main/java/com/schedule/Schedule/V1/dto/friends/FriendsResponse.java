@@ -24,5 +24,5 @@ public class FriendsResponse {
 
     private Genre genre;
 
-    private Long commonEvents;
+    private CommonEvents commonEvents;
 }

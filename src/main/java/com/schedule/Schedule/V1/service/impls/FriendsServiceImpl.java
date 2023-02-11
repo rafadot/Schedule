@@ -1,5 +1,6 @@
 package com.schedule.Schedule.V1.service.impls;
 
+import com.schedule.Schedule.V1.dto.friends.CommonEvents;
 import com.schedule.Schedule.V1.dto.friends.FriendsResponse;
 import com.schedule.Schedule.V1.dto.friends.UserFriendsResponse;
 import com.schedule.Schedule.V1.dto.users.UsersResponse;
@@ -62,12 +63,16 @@ public class FriendsServiceImpl implements FriendsService {
         response.setTotalFriends(optUsers.get().getFriends().size());
         response.setFriendsResponse(optUsers.get().getFriends().stream()
                 .map(m->{
-                    long commonEvents = 0;
+                    long totalCommonEvents = 0;
+                    CommonEvents commonEvents = new CommonEvents();
 
                     for(Events eventUser : m.getSchedule().getEvents()){
                         for(Events eventFriend: optUsers.get().getSchedule().getEvents()){
-                            if(eventFriend.getTitle().equals(eventUser.getTitle()) && eventFriend.getCreator().equals(eventUser.getCreator()))
-                                commonEvents++;
+                            if(eventFriend.getTitle().equals(eventUser.getTitle()) && eventFriend.getCreator().equals(eventUser.getCreator())){
+                                totalCommonEvents++;
+                                commonEvents.setTotalCommonEvents(totalCommonEvents);
+                                commonEvents.getEvents().add(eventFriend);
+                            }
                         }
                     }
 

@@ -56,6 +56,30 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
+    public EventsResponse patchEvent(UUID eventUUID, EventsRequest eventsRequest) {
+        Optional<Events> optEvents = eventsRepository.findById(eventUUID);
+
+        if(!optEvents.isPresent())
+            throw new BadRequestException("Id do evento inválido");
+
+        Events events = Events.builder()
+                .uuid(eventUUID)
+                .title(eventsRequest.getTitle() != null ? eventsRequest.getTitle() : optEvents.get().getTitle())
+                .description(eventsRequest.getDescription() != null ? eventsRequest.getDescription() : optEvents.get().getDescription())
+                .place(eventsRequest.getPlace() != null ? eventsRequest.getPlace() : optEvents.get().getPlace())
+                .startDate(eventsRequest.getStartDate() != null ? eventsRequest.getStartDate() : optEvents.get().getStartDate())
+                .endDate(eventsRequest.getEndDate() != null ? eventsRequest.getEndDate() : optEvents.get().getEndDate())
+                .creator(optEvents.get().getCreator())
+                .build();
+        eventsRepository.save(events);
+
+        EventsResponse eventsResponse = new EventsResponse();
+        BeanUtils.copyProperties(events,eventsResponse);
+
+        return eventsResponse;
+    }
+
+    @Override
     public Map<String, String> group(UUID eventUUID, String friendNickName) {
         Optional<Events> optEvent = eventsRepository.findById(eventUUID);
         Optional<Users> optUsers = usersRepository.findByNickName(friendNickName);

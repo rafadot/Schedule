@@ -66,8 +66,8 @@ public class FriendsServiceImpl implements FriendsService {
                     long totalCommonEvents = 0;
                     CommonEvents commonEvents = new CommonEvents();
 
-                    for(Events eventUser : m.getSchedule().getEvents()){
-                        for(Events eventFriend: optUsers.get().getSchedule().getEvents()){
+                    for(Events eventFriend : m.getSchedule().getEvents()){
+                        for(Events eventUser: optUsers.get().getSchedule().getEvents()){
                             if(eventFriend.getTitle().equals(eventUser.getTitle()) && eventFriend.getCreator().equals(eventUser.getCreator())){
                                 totalCommonEvents++;
                                 commonEvents.setTotalCommonEvents(totalCommonEvents);

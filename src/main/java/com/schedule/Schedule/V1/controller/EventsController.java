@@ -26,6 +26,11 @@ public class EventsController {
         return new ResponseEntity<>(eventsService.create(scheduleUUID,eventsRequest), HttpStatus.CREATED);
     }
 
+    @PatchMapping
+    public ResponseEntity<EventsResponse> patchEvent(@RequestParam UUID eventUUID, @RequestBody EventsRequest eventsRequest){
+        return new ResponseEntity<>(eventsService.patchEvent(eventUUID,eventsRequest),HttpStatus.OK);
+    }
+
     @GetMapping("/addFriend")
     public ResponseEntity<Map<String,String>> addFriendToEvent(@RequestParam UUID eventUUID, @RequestParam String friendNickName){
         return new ResponseEntity<>(eventsService.group(eventUUID,friendNickName),HttpStatus.OK);

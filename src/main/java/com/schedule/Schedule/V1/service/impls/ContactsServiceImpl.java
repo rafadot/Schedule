@@ -81,7 +81,7 @@ public class ContactsServiceImpl implements ContactsService {
             throw new BadRequestException("Contao não existe");
 
         for(Contacts c : optSchedule.get().getContacts()){
-            if(c.getNickname().equals(contactsRequest.getNickname()) && contactsRequest.getNickname() != null)
+            if(c.getNickname().equals(contactsRequest.getNickname()) && (!c.getUuid().equals(contactUUID)))
                 throw new BadRequestException("Esse apelido já existe, por favor escolher outro.");
         }
 

@@ -27,8 +27,10 @@ public class EventsController {
     }
 
     @PatchMapping
-    public ResponseEntity<EventsResponse> patchEvent(@RequestParam UUID eventUUID, @RequestBody EventsRequest eventsRequest){
-        return new ResponseEntity<>(eventsService.patchEvent(eventUUID,eventsRequest),HttpStatus.OK);
+    public ResponseEntity<EventsResponse> patchEvent(@RequestParam UUID scheduleUUID,
+                                                     @RequestParam UUID eventUUID,
+                                                     @RequestBody EventsRequest eventsRequest){
+        return new ResponseEntity<>(eventsService.patchEvent(scheduleUUID,eventUUID,eventsRequest),HttpStatus.OK);
     }
 
     @GetMapping("/addFriend")
@@ -39,5 +41,10 @@ public class EventsController {
     @GetMapping
     public ResponseEntity<List<Events>> getAll(@RequestParam UUID scheduleUUID){
         return new ResponseEntity<>(eventsService.getAll(scheduleUUID),HttpStatus.OK);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Map<String, String>> deleteEvent(UUID scheduleUUID, UUID eventUUID){
+        return new ResponseEntity<>(eventsService.deleteEvent(scheduleUUID,eventUUID),HttpStatus.OK);
     }
 }

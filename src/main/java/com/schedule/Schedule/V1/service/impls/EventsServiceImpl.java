@@ -56,11 +56,24 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public EventsResponse patchEvent(UUID eventUUID, EventsRequest eventsRequest) {
+    public EventsResponse patchEvent(UUID scheduleUUID, UUID eventUUID, EventsRequest eventsRequest) {
         Optional<Events> optEvents = eventsRepository.findById(eventUUID);
 
         if(!optEvents.isPresent())
             throw new BadRequestException("Id do evento inválido");
+
+        Optional<Schedule> schedule = scheduleRepository.findById(scheduleUUID);
+
+        if(!schedule.isPresent())
+            throw new BadRequestException("Id da agenda inválido");
+
+        if(!schedule.get().getCreatorName().equals(optEvents.get().getCreator()))
+            throw new BadRequestException("Apenas o criador do evento (" + optEvents.get().getCreator() + ") pode modificalo-lo");
+
+        for(Events events : schedule.get().getEvents()){
+            if(events.getTitle().equals(eventsRequest.getTitle()) && (!events.getUuid().equals(eventUUID)))
+                throw new BadRequestException("Nome do evento já existe");
+        }
 
         Events events = Events.builder()
                 .uuid(eventUUID)
@@ -118,5 +131,26 @@ public class EventsServiceImpl implements EventsService {
             throw new BadRequestException("Id da agenda inválido");
 
         return optSchedule.get().getEvents();
+    }
+
+    @Override
+    public Map<String, String> deleteEvent(UUID scheduleUUID, UUID eventUUID) {
+        Optional<Schedule> schedule = scheduleRepository.findById(scheduleUUID);
+
+        if(!schedule.isPresent())
+            throw new BadRequestException("Id da agenda inválido");
+
+        for(Events events : schedule.get().getEvents()){
+            if(events.getUuid().equals(eventUUID)){
+                Map<String,String> response = new HashMap<>();
+                response.put("message",events.getTitle() + " excluido com sucesso!");
+
+                eventsRepository.deleteById(eventUUID);
+                return response;
+            }
+        }
+        Map<String,String> response = new HashMap<>();
+        response.put("message", "Evento não existe");
+        return response;
     }
 }

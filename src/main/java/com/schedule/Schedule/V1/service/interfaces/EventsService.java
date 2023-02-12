@@ -12,9 +12,11 @@ public interface EventsService {
 
     EventsResponse create(UUID scheduleUUID, EventsRequest eventsRequest);
 
-    EventsResponse patchEvent(UUID eventUUID, EventsRequest eventsRequest);
+    EventsResponse patchEvent(UUID scheduleUUID, UUID eventUUID, EventsRequest eventsRequest);
 
     Map<String, String> group(UUID eventUUID, String friendNickName);
 
     List<Events> getAll(UUID scheduleUUID);
+
+    Map<String,String> deleteEvent(UUID scheduleUUID, UUID eventUUID);
 }

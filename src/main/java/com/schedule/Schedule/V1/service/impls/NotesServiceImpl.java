@@ -69,6 +69,7 @@ public class NotesServiceImpl implements NotesService {
                 .date(notesRequest.getDate() != null ? notesRequest.getDate() : optNotes.get().getDate())
                 .time(notesRequest.getTime() != null ? notesRequest.getTime() : optNotes.get().getTime())
                 .color(notesRequest.getColor() != null ? notesRequest.getColor() : optNotes.get().getColor())
+                .taskNotes(optNotes.get().getTaskNotes())
                 .build();
 
         notesRepository.save(notes);

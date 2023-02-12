@@ -82,37 +82,30 @@ public class EventsServiceImpl implements EventsService {
     @Override
     public Map<String, String> group(UUID eventUUID, String friendNickName) {
         Optional<Events> optEvent = eventsRepository.findById(eventUUID);
-        Optional<Users> optUsers = usersRepository.findByNickName(friendNickName);
-
-        if(!optEvent.isPresent() && !optUsers.isPresent())
-            throw new BadRequestException("Id do evento e do usuário inválido");
 
         if(!optEvent.isPresent())
             throw new BadRequestException("Id do evento inválido");
 
-        if(!optUsers.isPresent())
-            throw new BadRequestException("Id do usuário inválido");
+        Optional<Users> friend = usersRepository.findByNickName(friendNickName);
 
-        List<Events> eventsList = optUsers.get().getSchedule().getEvents();
+        if(!friend.isPresent())
+            throw new BadRequestException("Apelido do amigo inválido");
+
+        List<Events> eventsList = friend.get().getSchedule().getEvents();
 
         for(Events event : eventsList){
             if(event.getCreator().equals(optEvent.get().getCreator()) && event.getTitle().equals(optEvent.get().getTitle()))
                 throw new BadRequestException(friendNickName + " usuário já possui esse evento");
         }
 
-        Events events = new Events();
-        Events events1 = optEvent.get();
-        Users users = optUsers.get();
+        Users users = friend.get();
 
-        BeanUtils.copyProperties(events1,events,"uuid");
-        eventsRepository.save(events);
-
-        users.getSchedule().getEvents().add(events);
+        users.getSchedule().getEvents().add(optEvent.get());
         usersRepository.save(users);
 
         Map<String, String> response = new HashMap<>();
 
-        response.put("message",events.getTitle() + " compartilhado com " + friendNickName);
+        response.put("message",optEvent.get().getTitle() + " compartilhado com " + friendNickName);
 
         return response;
     }

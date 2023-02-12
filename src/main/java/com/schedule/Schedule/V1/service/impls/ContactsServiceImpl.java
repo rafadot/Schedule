@@ -90,7 +90,9 @@ public class ContactsServiceImpl implements ContactsService {
                 .name(contactsRequest.getName() != null ? contactsRequest.getName() : optContacts.get().getName())
                 .nickname(contactsRequest.getNickname() != null ? contactsRequest.getNickname() : optContacts.get().getNickname())
                 .phoneNumber(contactsRequest.getPhoneNumber() != null ? contactsRequest.getPhoneNumber() : optContacts.get().getPhoneNumber())
+                .schedule(optSchedule.get())
                 .build();
+
         contactsRepository.save(contacts);
 
         ContactsResponse response = new ContactsResponse();

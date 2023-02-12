@@ -33,7 +33,11 @@ public class Schedule implements Serializable {
     @JoinColumn(name = "schedule_uuid")
     private List<Notes> notes;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_uuid")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "schedule_events",
+            joinColumns = @JoinColumn(name = "schedule_uuid"),
+            inverseJoinColumns = @JoinColumn (name = "events_uuid")
+    )
     private List<Events> events;
 }

@@ -15,17 +15,15 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<BodyError> badRequest(BadRequestException e, HttpServletRequest request){
-        String error = "Requisição mal feita";
-        HttpStatus status = HttpStatus.BAD_REQUEST;
 
-        BodyError err = BodyError.builder()
+        BodyError bodyError = BodyError.builder()
                 .timestamp(Instant.now())
-                .status(status.value())
-                .error(error)
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error("Requisição mal feita")
                 .message(e.getMessage())
                 .path(request.getRequestURI())
                 .build();
 
-        return new ResponseEntity<>(err,status);
+        return new ResponseEntity<>(bodyError,HttpStatus.BAD_REQUEST);
     }
 }

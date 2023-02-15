@@ -39,7 +39,7 @@ public class EventsController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Events>> getAll(@RequestParam UUID scheduleUUID){
+    public ResponseEntity<List<EventsResponse>> getAll(@RequestParam UUID scheduleUUID){
         return new ResponseEntity<>(eventsService.getAll(scheduleUUID),HttpStatus.OK);
     }
 

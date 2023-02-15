@@ -16,7 +16,7 @@ public interface EventsService {
 
     Map<String, String> group(UUID eventUUID, String friendNickName);
 
-    List<Events> getAll(UUID scheduleUUID);
+    List<EventsResponse> getAll(UUID scheduleUUID);
 
     Map<String,String> deleteEvent(UUID scheduleUUID, UUID eventUUID);
 }

@@ -12,7 +12,7 @@ import java.time.Instant;
 @Builder
 public class BodyError {
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT")
     private Instant timestamp;
 
     private Integer status;

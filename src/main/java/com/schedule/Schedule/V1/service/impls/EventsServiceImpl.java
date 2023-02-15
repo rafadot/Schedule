@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -57,15 +58,16 @@ public class EventsServiceImpl implements EventsService {
 
     @Override
     public EventsResponse patchEvent(UUID scheduleUUID, UUID eventUUID, EventsRequest eventsRequest) {
-        Optional<Events> optEvents = eventsRepository.findById(eventUUID);
-
-        if(!optEvents.isPresent())
-            throw new BadRequestException("Id do evento inválido");
-
         Optional<Schedule> schedule = scheduleRepository.findById(scheduleUUID);
 
         if(!schedule.isPresent())
             throw new BadRequestException("Id da agenda inválido");
+
+        Optional<Events> optEvents = eventsRepository.findById(eventUUID);
+
+        if(!optEvents.isPresent()) {
+            throw new BadRequestException("Id do evento inválido");
+        }
 
         if(!schedule.get().getCreatorName().equals(optEvents.get().getCreator()))
             throw new BadRequestException("Apenas o criador do evento (" + optEvents.get().getCreator() + ") pode modificalo-lo");
@@ -124,13 +126,18 @@ public class EventsServiceImpl implements EventsService {
     }
 
     @Override
-    public List<Events> getAll(UUID scheduleUUID) {
+    public List<EventsResponse> getAll(UUID scheduleUUID) {
         Optional<Schedule> optSchedule = scheduleRepository.findById(scheduleUUID);
 
         if(!optSchedule.isPresent())
             throw new BadRequestException("Id da agenda inválido");
 
-        return optSchedule.get().getEvents();
+        return optSchedule.get().getEvents().stream()
+                .map(m->{
+                    EventsResponse response = new EventsResponse();
+                    BeanUtils.copyProperties(m,response);
+                    return response;
+                }).collect(Collectors.toList());
     }
 
     @Override

@@ -161,12 +161,19 @@ public class ContactsServiceImpl implements ContactsService {
 
     @Override
     public ContactsPageResponse contactsPage(UUID scheduleId, Pageable pageable) {
+
+        Optional<Schedule> optSchedule = scheduleRepository.findById(scheduleId);
+
+        if(!optSchedule.isPresent())
+            throw new BadRequestException("Id da agenda inválido");
+
         Page<Contacts> contacts = contactsRepository.findAllByScheduleUuid(scheduleId,pageable);
         ContactsPageResponse contactsPageResponse = new ContactsPageResponse();
 
         contactsPageResponse.setPage(pageable.getPageNumber());
         contactsPageResponse.setSize(pageable.getPageSize());
         contactsPageResponse.setTotalPages(contacts.getTotalPages());
+        contactsPageResponse.setTotalContacts(optSchedule.get().getContacts().size());
         contactsPageResponse.setContacts(contacts
                 .stream()
                 .map(m->ContactsResponse.builder()

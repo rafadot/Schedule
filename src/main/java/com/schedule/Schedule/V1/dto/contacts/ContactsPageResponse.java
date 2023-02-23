@@ -19,6 +19,8 @@ public class ContactsPageResponse {
 
     private int size;
 
+    private int totalContacts;
+
     private List<ContactsResponse> contacts;
 
 }

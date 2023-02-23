@@ -43,8 +43,4 @@ public class EventsController {
         return new ResponseEntity<>(eventsService.getAll(scheduleUUID),HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<Map<String, String>> deleteEvent(UUID scheduleUUID, UUID eventUUID){
-        return new ResponseEntity<>(eventsService.deleteEvent(scheduleUUID,eventUUID),HttpStatus.OK);
-    }
 }

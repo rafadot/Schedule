@@ -140,24 +140,4 @@ public class EventsServiceImpl implements EventsService {
                 }).collect(Collectors.toList());
     }
 
-    @Override
-    public Map<String, String> deleteEvent(UUID scheduleUUID, UUID eventUUID) {
-        Optional<Schedule> schedule = scheduleRepository.findById(scheduleUUID);
-
-        if(!schedule.isPresent())
-            throw new BadRequestException("Id da agenda inválido");
-
-        for(Events events : schedule.get().getEvents()){
-            if(events.getUuid().equals(eventUUID)){
-                Map<String,String> response = new HashMap<>();
-                response.put("message",events.getTitle() + " excluido com sucesso!");
-
-                eventsRepository.deleteById(eventUUID);
-                return response;
-            }
-        }
-        Map<String,String> response = new HashMap<>();
-        response.put("message", "Evento não existe");
-        return response;
-    }
 }

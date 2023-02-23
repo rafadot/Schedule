@@ -18,5 +18,5 @@ public interface EventsService {
 
     List<EventsResponse> getAll(UUID scheduleUUID);
 
-    Map<String,String> deleteEvent(UUID scheduleUUID, UUID eventUUID);
+
 }

@@ -3,6 +3,7 @@ package com.schedule.Schedule.V1.service.interfaces;
 import com.schedule.Schedule.V1.dto.events.EventsRequest;
 import com.schedule.Schedule.V1.dto.events.EventsResponse;
 import com.schedule.Schedule.V1.model.Events;
+import com.schedule.Schedule.V1.model.Schedule;
 
 import java.util.List;
 import java.util.Map;
@@ -18,5 +19,6 @@ public interface EventsService {
 
     List<EventsResponse> getAll(UUID scheduleUUID);
 
+    void deleteEvents(UUID eventsUUID);
 
 }

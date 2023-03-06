@@ -33,7 +33,7 @@ public class Schedule implements Serializable {
     @JoinColumn(name = "schedule_uuid")
     private List<Notes> notes;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.ALL,CascadeType.REMOVE})
     @JoinTable(
             name = "schedule_events",
             joinColumns = @JoinColumn(name = "schedule_uuid"),

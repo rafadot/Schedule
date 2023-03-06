@@ -140,4 +140,9 @@ public class EventsServiceImpl implements EventsService {
                 }).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteEvents(UUID eventsUUID) {
+        eventsRepository.deleteEventAndScheduleRelations(eventsUUID);
+    }
+
 }

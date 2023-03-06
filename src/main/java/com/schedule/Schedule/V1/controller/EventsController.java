@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
@@ -43,4 +44,10 @@ public class EventsController {
         return new ResponseEntity<>(eventsService.getAll(scheduleUUID),HttpStatus.OK);
     }
 
+    @Transactional
+    @DeleteMapping
+    public ResponseEntity<Void> deleteEvent(@RequestParam UUID eventUUID){
+        eventsService.deleteEvents(eventUUID);
+        return null;
+    }
 }
